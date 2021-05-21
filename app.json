@@ -1,0 +1,12 @@
+{
+  "name": "MOB1-RN",
+  "displayName": "MOB1-RN",
+  "expo": {
+    "name": "MOB1-RN",
+    "slug": "MOB1-RN",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
