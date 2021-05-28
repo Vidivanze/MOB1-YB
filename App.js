@@ -33,13 +33,14 @@ export default function App() {
 
 const styles = StyleSheet.create({
   top: {
-    backgroundColor: '#fffff',
+    backgroundColor: '#fff',
   },
 
   content: {
     marginTop: 30,
-    backgroundColor: '#fffff',
-    alignItems: 'center',
+    marginLeft: 15,
+    marginRight: 15,
+    backgroundColor: '#fff',
     justifyContent: 'center', 
   },
 });

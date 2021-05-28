@@ -4,31 +4,41 @@ import { Picker } from '@react-native-picker/picker';
 import { Button , Input} from 'react-native-elements';
 
 import axios from 'axios';
-import API from '../api/Api';   
+import LoginProvider from './LoginProvider';   
 
 class Login extends Component {
+
     constructor(props){
         super(props);
         this.state = {
-            bases: new Array()
+            bases: [],
+            initials: null,
+            password: null
         }
+        
+        this.loginProvider = new LoginProvider();
     }
     
     componentDidMount(){
-        API.get('bases')
-        .then(res => {
-            this.setState({bases: res.data});
-            console.log(this.state.bases);
-        })
+        this.loginProvider.getBases().then((result)=>
+            this.setState({bases: result})
+        )
     }
-   
+
+    login = () =>{
+        const data = new FormData();
+        data.append("initials", this.state.initials);
+        data.append("password", this.state.password);
+        
+        this.loginProvider.login(data);
+    }
 
     render() {
     return (
         <View>
             <View style={{flex:2}}>
-                <Input placeholder="Initiales"/>
-                <Input secureTextEntry={true} placeholder="Mot de passe"/>
+                <Input placeholder="Initiales" name="initials" onChange={val => this.setState({ initials: val.target.value })}/>
+                <Input secureTextEntry={true} placeholder="Mot de passe" onChange={val => this.setState({ password: val.target.value })}/>
             </View>
             <View style={{flex:2}}>
                 <Picker style={{marginTop: 10}}>
@@ -38,7 +48,7 @@ class Login extends Component {
                 </Picker>
             </View>
 
-            <Button style={{marginTop: 10}} title="Connexion" color="#841584"/>
+            <Button style={{marginTop: 10}} title="Connexion" color="#841584"  onPress={this.login}/>
             
 
         </View>
