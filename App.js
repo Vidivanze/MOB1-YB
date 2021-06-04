@@ -4,31 +4,61 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Login from './screens/Login';
 import { Header, ThemeProvider, Tab} from 'react-native-elements';
+import { UserContext } from './context/UserContext';
+import { Component } from 'react';
+import LoginProvider from './providers/LoginProvider';
 
-export default function App() {
-  return (
-    <SafeAreaProvider>
+class App extends Component {
+  
+  constructor(props){
+    super(props);
+    this.state = {
+        token: null
+    }  
+  }
 
-      <View style={styles.container}>
-        <Header
-          //leftComponent={{ icon: 'menu', color: '#fff' }}
-          centerComponent={{ text: 'CSU', style: { color: '#fff' } }}
-          //rightComponent={{ icon: 'home', color: '#fff' }}
-        />
-        
-        <Tab>
-          <Tab.Item title="Recent" />
-          <Tab.Item title="favourite" />
-          <Tab.Item title="cart" />
-        </Tab>
-      </View>
+  isLoggedIn = (value) => {
+    this.setState({
+      token: value,
+    })
+  }
 
-      <View style={styles.content}>
-        <Text>Bienvenue !</Text>
-        <Login></Login>         
-      </View>
-    </SafeAreaProvider>
-  );
+
+  render (){
+    return (
+      <SafeAreaProvider>
+        <UserContext.Provider
+          value={
+            {
+              token: this.state.token,
+              isLoggedIn: this.isLoggedIn
+            }
+          }  
+        >
+
+          <View style={styles.container}>
+            <Header
+              //leftComponent={{ icon: 'menu', color: '#fff' }}
+              centerComponent={{ text: 'CSU', style: { color: '#fff' } }}
+              //rightComponent={{ icon: 'home', color: '#fff' }}
+            />
+            
+            <Tab>
+              <Tab.Item title="Recent" />
+              <Tab.Item title="favourite" />
+              <Tab.Item title="cart" />
+            </Tab>
+          </View>
+
+          <View style={styles.content}>
+            <Text>Bienvenue !</Text>
+            <Login></Login>        
+          </View>
+        </UserContext.Provider>
+      </SafeAreaProvider>
+
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -44,3 +74,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center', 
   },
 });
+
+
+export default App;
