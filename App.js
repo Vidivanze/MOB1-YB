@@ -1,14 +1,26 @@
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Header, ThemeProvider, Tab} from 'react-native-elements';
-import { UserContext } from './context/UserContext';
 import { Component } from 'react';
-import LoginProvider from './providers/LoginProvider';
 
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+
+import { UserContext } from './context/UserContext';
 import Login from './screens/Login';
 import Home from './screens/Home';
+
+
+function login() {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Login></Login>
+    </View>
+  );
+}
+
+const Stack = createStackNavigator();
 
 class App extends Component {
   
@@ -29,12 +41,10 @@ class App extends Component {
   renderElement(){
     console.log(this.state.token);
     if(this.state.token == null)
-      return <Login></Login>;
+      return <Stack.Screen name="Connexion" component={Login}/>;
     else 
-      return <Home></Home>;
+    return <Stack.Screen name="Home" component={Home}/>;
   }
-
-      
 
   render(){
     return (
@@ -47,24 +57,11 @@ class App extends Component {
             }
           }  
         >
-
-          <View style={styles.container}>
-            <Header
-              //leftComponent={{ icon: 'menu', color: '#fff' }}
-              centerComponent={{ text: 'CSU', style: { color: '#fff' } }}
-              //rightComponent={{ icon: 'home', color: '#fff' }}
-            />
-            
-            <Tab>
-              <Tab.Item title="Recent" />
-              <Tab.Item title="favourite" />
-              <Tab.Item title="cart" />
-            </Tab>
-          </View>
-
-          <View style={styles.content}>
-            { this.renderElement() }
-          </View>
+          <NavigationContainer>
+            <Stack.Navigator>
+              {this.renderElement()}
+            </Stack.Navigator>
+          </NavigationContainer>
         </UserContext.Provider>
       </SafeAreaProvider>
 
