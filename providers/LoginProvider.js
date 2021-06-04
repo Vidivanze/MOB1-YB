@@ -1,8 +1,8 @@
-import axios from 'axios';
 import API from '../api/Api'
 
-class LoginProvider {
 
+class LoginProvider {
+    
     getBases(){
         return API.get('bases')
         .then(res => res.data)
@@ -12,18 +12,18 @@ class LoginProvider {
     }
 
     login(data){
-        API.post('gettoken', data, {
+        return API.post('gettoken', data, {
             headers: {
                 'Content-Type' : 'multipart/form-data'
             }
-        }).then(res =>{
-            console.log(res)
-            
-        }).catch(function (error) {
+        }).then(res => res.data['token'])
+        .catch(function (error) {
             console.log(error);
-        });
+        });   
         
     }
+    
 }
+
 
 export default LoginProvider
