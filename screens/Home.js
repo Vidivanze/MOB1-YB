@@ -7,7 +7,7 @@ import axios from 'axios';
 import LoginProvider from '../providers/LoginProvider';   
 import { UserContext } from '../context/UserContext';
 
-class Login extends Component {
+class Home extends Component {
 
     constructor(props){
         super(props);
@@ -16,12 +16,6 @@ class Login extends Component {
         }
     }
     
-    componentDidMount(){
-        this.loginProvider.getBases().then((result)=>
-            this.setState({bases: result})
-        )
-    }
-
 
     render() { 
         return (

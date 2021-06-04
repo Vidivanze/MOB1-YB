@@ -18,6 +18,7 @@ class Login extends Component {
         }
         
         this.loginProvider = new LoginProvider();
+        
         this.login = this.login.bind(this);
     }
     

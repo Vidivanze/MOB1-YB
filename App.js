@@ -2,11 +2,13 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import Login from './screens/Login';
 import { Header, ThemeProvider, Tab} from 'react-native-elements';
 import { UserContext } from './context/UserContext';
 import { Component } from 'react';
 import LoginProvider from './providers/LoginProvider';
+
+import Login from './screens/Login';
+import Home from './screens/Home';
 
 class App extends Component {
   
@@ -15,6 +17,7 @@ class App extends Component {
     this.state = {
         token: null
     }  
+    
   }
 
   isLoggedIn = (value) => {
@@ -23,8 +26,17 @@ class App extends Component {
     })
   }
 
+  renderElement(){
+    console.log(this.state.token);
+    if(this.state.token == null)
+      return <Login></Login>;
+    else 
+      return <Home></Home>;
+  }
 
-  render (){
+      
+
+  render(){
     return (
       <SafeAreaProvider>
         <UserContext.Provider
@@ -51,13 +63,12 @@ class App extends Component {
           </View>
 
           <View style={styles.content}>
-            <Text>Bienvenue !</Text>
-            <Login></Login>        
+            { this.renderElement() }
           </View>
         </UserContext.Provider>
       </SafeAreaProvider>
 
-    );
+    )
   }
 }
 
