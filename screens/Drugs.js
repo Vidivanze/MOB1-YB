@@ -5,7 +5,7 @@ import { Button , Input} from 'react-native-elements';
 
 import { UserContext } from '../context/UserContext';
 
-class Reports extends Component {
+class Drugs extends Component {
 
     constructor(props){
         super(props);
@@ -17,13 +17,13 @@ class Reports extends Component {
 
     render() { 
         return (
-            <Text>Reports</Text>
+            <Text>Les Drugs</Text>
         );
 
 
     }
 }
 
-Reports.contextType = UserContext;
+Drugs.contextType = UserContext;
 
-export default Reports;
+export default Drugs;

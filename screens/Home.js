@@ -9,29 +9,26 @@ import { UserContext } from '../context/UserContext';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import Reports from './Reports';
+import Drugs from './Drugs';
+import Consultations from './Consultations';
 
 const Tab = createBottomTabNavigator();
 
-function HomeScreen({ navigation }) {
+function HomeScreen() {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Home!</Text>
-        <Button
-        title="Reports"
-        onPress={() => navigation.push('Reports')}
-      />
+      <View style={{ flex: 1, alignItems: 'center', paddingTop: '25px' }}>
+        <Consultations></Consultations>
       </View>
     );
   }
   
-  function SettingsScreen() {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Settings!</Text>
-      </View>
-    );
-  }
+function DrugsScreen() {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', paddingTop: '25px' }}>
+      <Drugs></Drugs>
+    </View>
+  );
+}
 
 
 class Home extends Component {
@@ -47,8 +44,8 @@ class Home extends Component {
     render() { 
         return (
             <Tab.Navigator>
-              <Tab.Screen name="Home" component={HomeScreen} />
-              <Tab.Screen name="Settings" component={SettingsScreen} />
+              <Tab.Screen name="Consultations" component={HomeScreen} />
+              <Tab.Screen name="Drogues" component={DrugsScreen} />
             </Tab.Navigator>
         );
 

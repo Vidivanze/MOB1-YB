@@ -2,6 +2,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import React from 'react';
 import { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import Toast from 'react-native-toast-message';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -56,8 +57,10 @@ class App extends Component {
             }
           }  
         >
+        <Toast ref={(ref) => Toast.setRef(ref)} />
           <NavigationContainer>
             <Stack.Navigator>
+              
               {this.renderElement()}
             </Stack.Navigator>
           </NavigationContainer>

@@ -1,6 +1,5 @@
 import API from '../api/Api'
 
-
 class LoginProvider {
     
     getBases(){
@@ -18,7 +17,7 @@ class LoginProvider {
             }
         }).then(res => res.data['token'])
         .catch(function (error) {
-            console.log(error);
+            
         });   
         
     }

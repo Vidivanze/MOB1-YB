@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, StyleSheet} from 'react-native';
+import { View } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { Button , Input} from 'react-native-elements';
+import Toast from 'react-native-toast-message';
 
 import axios from 'axios';
 import LoginProvider from '../providers/LoginProvider';   
@@ -35,6 +36,14 @@ class Login extends Component {
         this.loginProvider.login(data).then((res) =>
             this.context.isLoggedIn(res)
         )
+
+        Toast.show({
+            position: 'top',
+            type: 'success',
+            text1: 'Hello',
+            text2: 'This is some something 👋',
+            useNativeDriver: true
+          })
     }
 
 
