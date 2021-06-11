@@ -1,7 +1,7 @@
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import React from 'react';
 import { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View} from 'react-native';
 import Toast from 'react-native-toast-message';
 
 import { NavigationContainer } from '@react-navigation/native';
@@ -27,19 +27,21 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-        token: null
+        token: null,
+        selectedBase: null
     }  
     
   }
 
-  isLoggedIn = (value) => {
+  logMeIn = (token, base) => {
     this.setState({
-      token: value,
+      token: token,
+      selectedBase: base
     })
   }
 
+
   renderElement(){
-    console.log(this.state.token);
     if(this.state.token == null)
       return <Stack.Screen name="Connexion" component={Login}/>;
     else 
@@ -53,14 +55,14 @@ class App extends Component {
           value={
             {
               token: this.state.token,
-              isLoggedIn: this.isLoggedIn
+              selectedBase: this.state.selectedBase,
+              logMeIn: this.logMeIn
             }
           }  
         >
         <Toast ref={(ref) => Toast.setRef(ref)} />
           <NavigationContainer>
             <Stack.Navigator>
-              
               {this.renderElement()}
             </Stack.Navigator>
           </NavigationContainer>

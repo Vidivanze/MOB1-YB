@@ -15,7 +15,8 @@ class Login extends Component {
         this.state = {
             bases: [],
             initials: null,
-            password: null
+            password: null,
+            selectedBase: 1
         }
         
         this.loginProvider = new LoginProvider();
@@ -33,9 +34,11 @@ class Login extends Component {
         const data = new FormData();
         data.append("initials", this.state.initials);
         data.append("password", this.state.password);
+
         this.loginProvider.login(data).then((res) =>
-            this.context.isLoggedIn(res)
+            this.context.logMeIn(res, this.state.selectedBase)
         )
+        
 
         Toast.show({
             position: 'top',
@@ -56,8 +59,7 @@ class Login extends Component {
                     <Input secureTextEntry={true} placeholder="Mot de passe" onChange={val => this.setState({ password: val.target.value })}/>
                 </View>
                 <View style={{flex:2}}>
-                    <Picker style={{marginTop: 10}}>
-                       
+                    <Picker name="base" style={{marginTop: 10}} onChange={val => this.setState({ selectedBase: val.target.value })}>
                         {(this.state.bases) ? (
                             this.state.bases.map(base =>
                             <Picker.Item label={base.name} value={base.id} />))
@@ -68,7 +70,7 @@ class Login extends Component {
                     </Picker>
                 </View>
 
-                <Button style={{marginTop: 10}} title="Connexion" color="#841584"  onPress={this.login}/>
+                <Button style={{marginTop: 10}} title="Connexion"  onPress={this.login}/>
             </View>
         );
     }
