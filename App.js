@@ -1,8 +1,7 @@
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { Header, ThemeProvider, Tab} from 'react-native-elements';
 import { Component } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -43,7 +42,7 @@ class App extends Component {
     if(this.state.token == null)
       return <Stack.Screen name="Connexion" component={Login}/>;
     else 
-    return <Stack.Screen name="Home" component={Home}/>;
+    return <Stack.Screen name="CSU APP" component={Home}/>;
   }
 
   render(){

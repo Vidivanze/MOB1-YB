@@ -48,9 +48,14 @@ class Login extends Component {
                 </View>
                 <View style={{flex:2}}>
                     <Picker style={{marginTop: 10}}>
-                        {this.state.bases.map(base =>
-                            <Picker.Item label={base.name} value={base.id} />    
-                        )}
+                       
+                        {(this.state.bases) ? (
+                            this.state.bases.map(base =>
+                            <Picker.Item label={base.name} value={base.id} />))
+                            : null
+                        }
+                        
+                        
                     </Picker>
                 </View>
 
