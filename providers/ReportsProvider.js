@@ -1,9 +1,9 @@
 import API from '../api/Api'
 
-class DrugsProvider {
+class ReportsProvider {
     
-    getReports(token){
-        return API.get('reports',{
+    getReports(token, baseId){
+        return API.get('missingchecks/'+baseId,{
             headers: {
                 'Authorization': `Bearer ${token}`
               }
@@ -17,4 +17,4 @@ class DrugsProvider {
 }
 
 
-export default DrugsProvider
+export default ReportsProvider
