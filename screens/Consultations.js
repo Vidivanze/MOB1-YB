@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { View, Text, Button, TextInput, StyleSheet, ScrollView, Image} from 'react-native';
-import { Picker } from '@react-native-picker/picker';
-import { ListItem } from 'react-native-elements';
+import { ListItem,  } from 'react-native-elements';
+import { TouchableOpacity } from 'react-native';
 
 import { UserContext } from '../context/UserContext';
 import ConsultationsProvider from '../providers/ConsultationsProvider';
-import { TouchableOpacity } from 'react-native';
 
 class Consultations extends Component {
 
@@ -14,7 +13,7 @@ class Consultations extends Component {
         this.state = {
             shifts: [],
             drugs: [],
-            reports: []
+            displayList: []
         }
         
         this.consultationsProvider = new ConsultationsProvider();
@@ -23,7 +22,7 @@ class Consultations extends Component {
     
     componentDidMount(){        
         this.consultationsProvider.getReports(this.context.token).then((result)=>
-            this.setState({ shifts: result.shift, drugs: result.drug, reports: result.shift})
+            this.setState({ shifts: result.shift, drugs: result.drug, displayList: result.shift})
         )
     }
 
@@ -32,18 +31,18 @@ class Consultations extends Component {
 
         return (
             <ScrollView>
-                <View style={{flex: 6, flexDirection: "row", alignContent: "spave-between", alignItems: "center"}}>
-                    <TouchableOpacity style={style.buttonCheck} color="#841584" onPress={ () => this.setState({reports: this.state.shifts})}>
+                <View style={{flex: 8, flexDirection: "row", alignContent: "spave-between", alignItems: "center"}}>
+                    <TouchableOpacity style={style.buttonCheck} color="#841584" onPress={ () => this.setState({displayList: this.state.shifts})}>
                         <Text>Garde</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={style.buttonCheck} color="#841584" onPress={ () => this.setState({reports: this.state.drugs})}>
+                    <TouchableOpacity style={style.buttonCheck} color="#841584" onPress={ () => this.setState({displayList: this.state.drugs})}>
                         <Text>Stup</Text>
                     </TouchableOpacity>
                 </View>
                 
                 <View style={{flex:2}}>
-                    {(this.state.reports) ? (
-                        this.state.reports.map((item, i) => (
+                    {(this.state.displayList) ? (
+                        this.state.displayList.map((item, i) => (
                         <ListItem key={i} bottomDivider>
                             <ListItem.Content>
                             {(item.date) ? (
