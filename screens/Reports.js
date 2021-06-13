@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, StyleSheet, ScrollView} from 'react-native';
 import { Picker } from '@react-native-picker/picker';
-import { Button , Input} from 'react-native-elements';
+import { Button , Input, Card} from 'react-native-elements';
 import { TouchableOpacity } from 'react-native';
 
 import { UserContext } from '../context/UserContext';
@@ -23,8 +23,10 @@ class Reports extends Component {
     
     componentDidMount(){
         this.reportsProvider.getReports(this.context.token, this.context.selectedBase.id).then((result)=>
-            this.setState({ pharma: result.pharma, nova: result.nova, displayList: result.pharma})
+            this.setState({ pharma: result.pharma, nova: result.nova, displayList: result.pharma}),
+            
         )
+        console.log(this.state.pharma)
     }
 
     render() { 
@@ -34,10 +36,10 @@ class Reports extends Component {
                     <Text>Faire un </Text>
                 </View>
                 <View style={{flex: 6, flexDirection: "row", alignContent: "spave-between", alignItems: "center"}}>
-                    <TouchableOpacity style={style.buttonCheck} color="#841584" onPress={ () => this.setState({reports: this.state.shifts})}>
+                    <TouchableOpacity style={style.buttonCheck} color="#841584" onPress={ () => this.setState({displayList: this.state.pharma})}>
                         <Text>Pharmacheck</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={style.buttonCheck} color="#841584" onPress={ () => this.setState({reports: this.state.drugs})}>
+                    <TouchableOpacity style={style.buttonCheck} color="#841584" onPress={ () => this.setState({displayList: this.state.nova})}>
                         <Text>NovaCheck</Text>
                     </TouchableOpacity>
                 </View>
@@ -47,24 +49,22 @@ class Reports extends Component {
                 <Text>à {this.context.selectedBase.name} </Text>
                 </View>
                 
+                {(this.state.displayList) ? (
+                    this.state.displayList.map((item, i) => (
+                        <Card>
+                            <Card.Title> {(item.nova) ?  'De '+item.drug+' de la nova '+item.nova : 'Du lot '+item.batch_number+' de '+item.drug}</Card.Title>
+                            <Card.Divider/>
+                                <View key={item.id}>
+                                    <Text>{item.date}</Text>
+                                </View>
+                        </Card>
+                    )))
+                    : null
+                }
+                
 
                 <View style={{flex:2}}>
-                    {(this.state.displayList) ? (
-                        this.state.displayList.map((item, i) => (
-                        <ListItem key={i} bottomDivider>
-                            <ListItem.Content>
-                            {(item.date) ? (
-                                <ListItem.Title>Le {item.date}</ListItem.Title>
-                            ) : 
-                                <ListItem.Title>Semaine {item.week}</ListItem.Title>
-                            }
-                            <ListItem.Subtitle>à {item.base}</ListItem.Subtitle>
-                            </ListItem.Content>
-                            <ListItem.Chevron />
-                        </ListItem>
-                        )))
-                        : null
-                    }
+                    
                 </View>
             </ScrollView>
         );
