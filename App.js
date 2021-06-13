@@ -28,7 +28,7 @@ class App extends Component {
     super(props);
     this.state = {
         token: null,
-        selectedBase: null
+        selectedBase: []
     }  
     
   }

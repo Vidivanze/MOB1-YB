@@ -16,7 +16,8 @@ class Login extends Component {
             bases: [],
             initials: null,
             password: null,
-            selectedBase: 1
+            baseId: null,
+            selectedBase: null,
         }
         
         this.loginProvider = new LoginProvider();
@@ -28,25 +29,44 @@ class Login extends Component {
         this.loginProvider.getBases().then((result)=>
             this.setState({bases: result})
         )
+      
     }
 
     login(){
-        const data = new FormData();
-        data.append("initials", this.state.initials);
-        data.append("password", this.state.password);
+        console.log(this.state.baseId);
+        this.state.bases.map((base) => {
+            if(base.id == this.state.baseId){
+                console.log(base)
+                this.setState({selectedBase: base})
+            }
+        });
 
-        this.loginProvider.login(data).then((res) =>
-            this.context.logMeIn(res, this.state.selectedBase)
-        )
         
+        if(this.state.baseId != 0){
+            const data = new FormData();
+            data.append("initials", this.state.initials);
+            data.append("password", this.state.password);
 
-        Toast.show({
-            position: 'top',
-            type: 'success',
-            text1: 'Hello',
-            text2: 'This is some something 👋',
-            useNativeDriver: true
-          })
+            this.loginProvider.login(data).then((res) =>
+                this.context.logMeIn(res, this.state.selectedBase)
+            )
+            
+    
+            Toast.show({
+                position: 'top',
+                type: 'success',
+                text1: 'Hello',
+                text2: 'This is some something 👋'
+            })
+
+        }else{
+            Toast.show({
+                position: 'top',
+                type: 'error',
+                text1: 'Veuillez choisir une base'
+            })
+        }
+       
     }
 
 
@@ -59,12 +79,13 @@ class Login extends Component {
                     <Input secureTextEntry={true} placeholder="Mot de passe" onChange={val => this.setState({ password: val.target.value })}/>
                 </View>
                 <View style={{flex:2}}>
-                    <Picker name="base" style={{marginTop: 10}} onChange={val => this.setState({ selectedBase: val.target.value })}>
+                    <Picker name="base" style={{marginTop: 10}} onChange={val => this.setState({ baseId: val.target.value })}>
+                        <Picker.Item label="Veuillez choisir une base" value="0" />
                         {(this.state.bases) ? (
                             this.state.bases.map(base =>
-                            <Picker.Item label={base.name} value={base.id} />))
+                            <Picker.Item key={base.name} label={base.name} value={base.id} />))
                             : null
-                        }
+                        }   
                         
                         
                     </Picker>
