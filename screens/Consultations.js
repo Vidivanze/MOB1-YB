@@ -2,9 +2,23 @@ import React, { Component } from 'react';
 import { View, Text, Button, TextInput, StyleSheet, ScrollView, Image} from 'react-native';
 import { ListItem,  } from 'react-native-elements';
 import { TouchableOpacity } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+
 
 import { UserContext } from '../context/UserContext';
 import ConsultationsProvider from '../providers/ConsultationsProvider';
+import ConsultationsDetails from './ConsultationDetails';
+
+
+const Stack = createStackNavigator();
+
+function consultationsList() {
+    
+}
+
+
+
 
 class Consultations extends Component {
 
@@ -20,11 +34,12 @@ class Consultations extends Component {
 
     }
     
-    componentDidMount(){        
+    componentDidMount() {        
         this.consultationsProvider.getReports(this.context.token).then((result)=>
             this.setState({ shifts: result.shift, drugs: result.drug, displayList: result.shift})
         )
     }
+
 
 
     render() { 
@@ -43,7 +58,7 @@ class Consultations extends Component {
                 <View style={{flex:2}}>
                     {(this.state.displayList) ? (
                         this.state.displayList.map((item, i) => (
-                        <ListItem key={i} bottomDivider>
+                        <ListItem key={i} bottomDivider onPress={() => this.props.navigation.navigate("Details", {consultationId: item.id})}>
                             <ListItem.Content>
                             {(item.date) ? (
                                 <ListItem.Title>Le {item.date}</ListItem.Title>
@@ -59,7 +74,7 @@ class Consultations extends Component {
                     }
                 </View>
             </ScrollView>
-            
+           
         );
 
 

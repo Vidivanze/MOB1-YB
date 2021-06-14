@@ -9,11 +9,15 @@ import { UserContext } from '../context/UserContext';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
+import { ConsultationsStackNavigator } from './navigation/StackNavigator';
 
 import Reports from './Reports';
 import Consultations from './Consultations';
+import ConsultationsDetails from './ConsultationDetails';
 
 const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
 function HomeScreen() {
     return (
@@ -40,7 +44,6 @@ class Home extends Component {
         this.state = {
           
         }
-
     }
     
 
@@ -68,9 +71,10 @@ class Home extends Component {
             inactiveTintColor: 'gray',
           }}  
         >
-          <Tab.Screen name="Consulter" component={HomeScreen} icon/>
+          <Tab.Screen name="Consulter" component={ConsultationsStackNavigator}/>
           <Tab.Screen name="Rapporter" component={ReportsScreen} />
         </Tab.Navigator>
+        
       );
 
 
