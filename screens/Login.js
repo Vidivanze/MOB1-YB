@@ -33,10 +33,8 @@ class Login extends Component {
     }
 
     login(){
-        console.log(this.state.baseId);
         this.state.bases.map((base) => {
             if(base.id == this.state.baseId){
-                console.log(base)
                 this.setState({selectedBase: base})
             }
         });
