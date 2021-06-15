@@ -46,7 +46,7 @@ class Consultations extends Component {
 
         return (
             <ScrollView>
-                <View style={{flex: 8, flexDirection: "row", alignContent: "spave-between", alignItems: "center"}}>
+                <View style={{flex: 8, flexDirection: "row", alignContent: "spave-between", alignItems: "center", paddingTop: "5px"}}>
                     <TouchableOpacity style={style.buttonCheck} color="#841584" onPress={ () => this.setState({displayList: this.state.shifts})}>
                         <Text>Garde</Text>
                     </TouchableOpacity>
