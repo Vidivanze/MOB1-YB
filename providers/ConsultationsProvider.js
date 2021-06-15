@@ -13,6 +13,18 @@ class ConsultationsProvider {
             console.log(error);
         });
     }
+
+    getReportActionsInShift(token, id){
+        return API.get('myactionsinshift/'+id,{
+            headers: {
+                'Authorization': `Bearer ${token}`
+              }
+        })
+        .then(res => res.data.data)
+        .catch(function (error) {
+            console.log(error);
+        });
+    }
     
 }
 
