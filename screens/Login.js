@@ -72,7 +72,7 @@ class Login extends Component {
         
         return (
             <View>
-                <View style={{flex:2}}>
+                <View style={{flex:2, paddingTop: "20px"}}>
                     <Input placeholder="Initiales" name="initials" onChange={val => this.setState({ initials: val.target.value })}/>
                     <Input secureTextEntry={true} placeholder="Mot de passe" onChange={val => this.setState({ password: val.target.value })}/>
                 </View>
