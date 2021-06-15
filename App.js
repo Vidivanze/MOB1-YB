@@ -7,18 +7,8 @@ import Toast from 'react-native-toast-message';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
+import { LoginStackNavigator, HomeStackNavigator } from './screens/navigation/StackNavigator';
 import { UserContext } from './context/UserContext';
-import Login from './screens/Login';
-import Home from './screens/Home';
-
-
-function login() {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Login></Login>
-    </View>
-  );
-}
 
 
 const Stack = createStackNavigator();
@@ -44,9 +34,9 @@ class App extends Component {
 
   renderElement(){
     if(this.state.token == null)
-      return <Stack.Screen name="Connexion" component={Login}/>;
+      return <LoginStackNavigator></LoginStackNavigator>;
     else 
-    return <Stack.Screen name="CSU APP" component={Home}/>;
+    return <HomeStackNavigator></HomeStackNavigator>;
   }
 
   render(){
@@ -63,9 +53,7 @@ class App extends Component {
         >
         <Toast ref={(ref) => Toast.setRef(ref)} />
           <NavigationContainer>
-            <Stack.Navigator>
               {this.renderElement()}
-            </Stack.Navigator>
           </NavigationContainer>
         </UserContext.Provider>
       </SafeAreaProvider>

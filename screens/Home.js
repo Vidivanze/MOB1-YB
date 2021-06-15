@@ -10,7 +10,7 @@ import { UserContext } from '../context/UserContext';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-import { ConsultationsStackNavigator } from './navigation/StackNavigator';
+import { ConsultationsStackNavigator, ReportsStackNavigator } from './navigation/StackNavigator';
 
 import Reports from './Reports';
 import Consultations from './Consultations';
@@ -18,23 +18,6 @@ import ConsultationsDetails from './ConsultationDetails';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
-
-function HomeScreen() {
-    return (
-      <View style={{ flex: 1, paddingTop: '25px' }}>
-        <Consultations></Consultations>
-      </View>
-    );
-    
-  }
-  
-function ReportsScreen() {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', paddingTop: '5px' }}>
-      <Reports></Reports>
-    </View>
-  );
-}
 
 
 class Home extends Component {
@@ -72,7 +55,7 @@ class Home extends Component {
           }}  
         >
           <Tab.Screen name="Consulter" component={ConsultationsStackNavigator}/>
-          <Tab.Screen name="Rapporter" component={ReportsScreen} />
+          <Tab.Screen name="Rapporter" component={ReportsStackNavigator} />
         </Tab.Navigator>
         
       );
