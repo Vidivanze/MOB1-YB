@@ -15,7 +15,8 @@ class ConsultationDetails extends Component {
     constructor(props){
         super(props);
         this.state = {
-           consultationId: props.route.params.consultationId
+            report: props.route.params.report,
+            actionsInShift: [],
         }
         
         this.consultationsProvider = new ConsultationsProvider();
@@ -23,7 +24,10 @@ class ConsultationDetails extends Component {
     }
     
     componentDidMount() {        
-
+        this.consultationsProvider.getReportActionsInShift(this.context.token, this.state.report.id).then((result) =>
+            this.setState({actionsInShift: result})
+        )
+        console.log(this.state.actionsInShift)
     }
 
 
@@ -31,13 +35,30 @@ class ConsultationDetails extends Component {
     render() { 
 
         return (
-            <View>
-                <Text>This is the details of {this.state.consultationId}</Text>
-                <Button
-                    title="Go to list Screen"
-                    onPress={() => this.props.navigation.navigate("List")} // We added an onPress event which would navigate to the About screen
-                />
+            <ScrollView>
+                <View style={{paddingTop: "10px"}}>
+                    <Text>Dans le rapport du {this.state.report.date} à {this.context.selectedBase.name}</Text>
                 </View>
+
+                <View style={{paddingTop: "15px"}}>
+                    {(this.state.actionsInShift) ? (
+                        console.log(this.state.actionsInShift),
+                        this.state.actionsInShift.map((item, i) => ( 
+                            <ListItem key={i} bottomDivider>
+                                <ListItem.Content>
+                                    <ListItem.Title>{item.action}</ListItem.Title>
+                                {(item.day == 1) ? (
+                                    <ListItem.Subtitle>jour / {item.at}</ListItem.Subtitle>
+                                ) : 
+                                    <ListItem.Subtitle>nuit / {item.at}</ListItem.Subtitle>
+                                }
+                                </ListItem.Content>
+                            </ListItem>
+                        ))
+                    ) : null
+                    }
+                </View>
+            </ScrollView>
         );
 
 

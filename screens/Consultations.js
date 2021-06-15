@@ -8,7 +8,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import { UserContext } from '../context/UserContext';
 import ConsultationsProvider from '../providers/ConsultationsProvider';
-import ConsultationsDetails from './ConsultationDetails';
 
 
 const Stack = createStackNavigator();
@@ -16,8 +15,6 @@ const Stack = createStackNavigator();
 function consultationsList() {
     
 }
-
-
 
 
 class Consultations extends Component {
@@ -46,7 +43,7 @@ class Consultations extends Component {
 
         return (
             <ScrollView>
-                <View style={{flex: 8, flexDirection: "row", alignContent: "spave-between", alignItems: "center", paddingTop: "5px"}}>
+                <View style={{flex: 8, flexDirection: "row", alignContent: "spave-between", alignItems: "center", paddingTop: "15px"}}>
                     <TouchableOpacity style={style.buttonCheck} color="#841584" onPress={ () => this.setState({displayList: this.state.shifts})}>
                         <Text>Garde</Text>
                     </TouchableOpacity>
@@ -55,10 +52,10 @@ class Consultations extends Component {
                     </TouchableOpacity>
                 </View>
                 
-                <View style={{flex:2}}>
+                <View style={{flex:2, paddingTop: "15px"}}>
                     {(this.state.displayList) ? (
                         this.state.displayList.map((item, i) => (
-                        <ListItem key={i} bottomDivider onPress={() => this.props.navigation.navigate("Details", {consultationId: item.id})}>
+                        <ListItem key={i} bottomDivider onPress={() => this.props.navigation.navigate("Details", {report: item})}>
                             <ListItem.Content>
                             {(item.date) ? (
                                 <ListItem.Title>Le {item.date}</ListItem.Title>
