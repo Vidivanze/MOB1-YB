@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { createStackNavigator } from "@react-navigation/stack";
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -9,6 +9,9 @@ import Home from "../Home";
 import Consultations from '../Consultations';
 import ConsultationDetails from '../ConsultationDetails';
 import Reports from '../Reports';
+import { render } from 'react-dom';
+import { Component } from 'react';
+import { Text } from 'react-native';
 
 const Stack = createStackNavigator();
 
@@ -24,41 +27,70 @@ const screenOptionStyle2 = {
   headerStyle: {
     backgroundColor: "#rgb(32, 137, 220)",
   },
-  headerRight: () => (<Ionicons name="log-out-outline" size="30px" onPress={() => alert('déconnexion')}></Ionicons>),
   headerTintColor: "white",
   headerBackTitle: "Back",
 };
 
 
-const LoginStackNavigator = () => {
-  return (
-    <Stack.Navigator screenOptions={screenOptionStyle1}>
-      <Stack.Screen name="Login" component={Login} />
-    </Stack.Navigator>
-  );
+export class LoginStackNavigator extends Component{
+  render(){
+    return (
+      <Stack.Navigator screenOptions={screenOptionStyle1}>
+        <Stack.Screen name="Login" component={Login} />
+      </Stack.Navigator>
+    );
+  }
 }
 
-const HomeStackNavigator = () => {
-  return (<Home></Home>);
+export class HomeStackNavigator extends Component{
+  render(){ 
+    return (<Home></Home>);
+  }
 }
 
-const ConsultationsStackNavigator = () => {
-  return (
-    <Stack.Navigator screenOptions={screenOptionStyle2}>
-      <Stack.Screen name="List" component={Consultations} />
-      <Stack.Screen name="Details" component={ConsultationDetails} />
-    </Stack.Navigator>
-  );
+export class ConsultationsStackNavigator extends Component{
+  render(){
+    return (
+      <Stack.Navigator screenOptions={{     
+        headerStyle: {
+          backgroundColor: "#rgb(32, 137, 220)",
+        },
+        headerTintColor: "white",
+        headerBackTitle: "Back",
+        headerRight: () => (
+          <Text>{this.context.initials}@{this.context.selectedBase.name}  
+            <Ionicons name="log-out-outline" size="30px" onPress={() => this.context.logMeOut()} style={{paddingLeft: '15px', paddingRight: '15px'}}></Ionicons>
+          </Text>
+        ),
+      }}>
+        <Stack.Screen name="List" component={Consultations} />
+        <Stack.Screen name="Details" component={ConsultationDetails} />
+      </Stack.Navigator>
+    );
+  }
 }
 
-const ReportsStackNavigator = () => {
-  return (
-    <Stack.Navigator screenOptions={screenOptionStyle2}>
-      <Stack.Screen name="List" component={Reports} />
-    </Stack.Navigator>
-  );
+export class ReportsStackNavigator extends Component{
+  render(){
+    return (
+      <Stack.Navigator screenOptions={{     
+        headerStyle: {
+          backgroundColor: "#rgb(32, 137, 220)",
+        },
+        headerTintColor: "white",
+        headerBackTitle: "Back",
+        headerRight: () => (
+          <Text>{this.context.initials}@{this.context.selectedBase.name}  
+            <Ionicons name="log-out-outline" size="30px" onPress={() => this.context.logMeOut()} style={{paddingLeft: '15px', paddingRight: '15px'}}></Ionicons>
+          </Text>
+        ),
+      }}>
+        <Stack.Screen name="List" component={Reports} />
+      </Stack.Navigator>
+    );
+  } 
 }
 
-
-
-export { LoginStackNavigator, HomeStackNavigator, ConsultationsStackNavigator, ReportsStackNavigator };
+  
+ConsultationsStackNavigator.contextType = UserContext;
+ReportsStackNavigator.contextType = UserContext;
