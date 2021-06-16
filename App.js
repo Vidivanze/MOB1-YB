@@ -1,8 +1,9 @@
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import React from 'react';
 import { Component } from 'react';
-import { StyleSheet, Text, View} from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 import Toast from 'react-native-toast-message';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -13,6 +14,7 @@ import { UserContext } from './context/UserContext';
 
 const Stack = createStackNavigator();
 
+
 class App extends Component {
   
   constructor(props){
@@ -22,20 +24,64 @@ class App extends Component {
         token: null,
         selectedBase: []
     }  
-    
   }
 
-  logMeIn = (initials, token, base) => {
-    this.setState({
-      initials: initials,
-      token: token,
-      selectedBase: base
-    })
+  componentDidMount = async () =>{
+    try {
+      AsyncStorage.getItem('initials').then(
+        (initials)=>{
+          this.setState({initials: initials})
+        }
+      ),     
+      AsyncStorage.getItem('token').then(
+        (token)=>{
+          this.setState({token: token})
+        }
+      ),     
+      AsyncStorage.getItem('selectedBase').then(
+        (selectedBase)=>{
+          this.setState({selectedBase: JSON.parse(selectedBase)})
+        }
+      )
+    } catch(e) {
+      // read error
+    }
+  
   }
 
-  logMeOut = () => {
+
+  logMeIn = async (initials, token, base) => {
+      this.setState({
+        initials: initials,
+        token: token,
+        selectedBase: base
+      })
+  
+      this.saveStorage(initials, token, base)
+  }
+
+  logMeOut = async () => {
     this.setState({token: null, selectedBase: []})
+    this.clearStorage()
     return <LoginStackNavigator></LoginStackNavigator>;
+  }
+
+  saveStorage = async (initials, token, base) => {
+    try {
+      await AsyncStorage.setItem('initials', initials)
+      await AsyncStorage.setItem('token', token)
+      await AsyncStorage.setItem('selectedBase', JSON.stringify(base))
+    } catch(e) {
+      // save error
+    }
+  }
+
+  clearStorage = async () => {
+    try {
+      await AsyncStorage.clear()
+    } catch(e) {
+      // clear error
+    }
   }
 
 
