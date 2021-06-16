@@ -7,7 +7,7 @@ import Toast from 'react-native-toast-message';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import { LoginStackNavigator, HomeStackNavigator } from './screens/navigation/StackNavigator';
+import {LoginStackNavigator, HomeStackNavigator} from './screens/navigation/StackNavigator';
 import { UserContext } from './context/UserContext';
 
 
@@ -18,17 +18,24 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = {
+        initials: null,
         token: null,
         selectedBase: []
     }  
     
   }
 
-  logMeIn = (token, base) => {
+  logMeIn = (initials, token, base) => {
     this.setState({
+      initials: initials,
       token: token,
       selectedBase: base
     })
+  }
+
+  logMeOut = () => {
+    this.setState({token: null, selectedBase: []})
+    return <LoginStackNavigator></LoginStackNavigator>;
   }
 
 
@@ -45,9 +52,11 @@ class App extends Component {
         <UserContext.Provider
           value={
             {
+              initials: this.state.initials,
               token: this.state.token,
               selectedBase: this.state.selectedBase,
-              logMeIn: this.logMeIn
+              logMeIn: this.logMeIn,
+              logMeOut: this.logMeOut
             }
           }  
         >

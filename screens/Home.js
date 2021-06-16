@@ -10,7 +10,7 @@ import { UserContext } from '../context/UserContext';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-import { ConsultationsStackNavigator, ReportsStackNavigator } from './navigation/StackNavigator';
+import StackNavigator, { ConsultationsStackNavigator, ReportsStackNavigator } from './navigation/StackNavigator';
 
 import Reports from './Reports';
 import Consultations from './Consultations';
