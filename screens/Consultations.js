@@ -43,12 +43,12 @@ class Consultations extends Component {
 
         return (
             <ScrollView>
-                <View style={{flex: 8, flexDirection: "row", alignContent: "spave-between", alignItems: "center", paddingTop: "15px"}}>
-                    <TouchableOpacity style={style.buttonCheck} color="#841584" onPress={ () => this.setState({displayList: this.state.shifts})}>
-                        <Text>Garde</Text>
+                <View style={{flex: 8, flexDirection: "row", alignContent: "spave-between", alignItems: "center", justifyContent: 'center', paddingTop: "15px"}}>
+                    <TouchableOpacity style={style.buttonCheck} onPress={ () => this.setState({displayList: this.state.shifts})}>
+                        <Text style={style.buttonText}>Garde</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={style.buttonCheck} color="#841584" onPress={ () => this.setState({displayList: this.state.drugs})}>
-                        <Text>Stup</Text>
+                    <TouchableOpacity style={style.buttonCheck} onPress={ () => this.setState({displayList: this.state.drugs})}>
+                        <Text style={style.buttonText}>Stup</Text>
                     </TouchableOpacity>
                 </View>
                 
@@ -82,12 +82,17 @@ const style = StyleSheet.create({
     buttonCheck: {
         marginLeft: 10,
         marginRight: 10,
+        paddingTop: 5,
         backgroundColor: "rgb(32, 137, 220)",
         borderColor: "rgb(32, 137, 220)",
         alignItems: "center",
         width: 150,
         height: 30,
-      },
+    },
+    
+    buttonText: {
+        color: "#fff",
+    }
 });
 
 Consultations.contextType = UserContext;
