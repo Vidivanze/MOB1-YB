@@ -33,44 +33,48 @@ class Login extends Component {
     }
 
     login(){
-        this.state.bases.map((base) => {
-            if(base.id == this.state.baseId){
-                this.setState({selectedBase: base})
-            }
-        });
+        console.log(this.state.baseId)
+        if(this.state.initials && this.state.password && this.state.baseId != '0'){
+            this.state.bases.map((base) => {
+                if(base.id == this.state.baseId){
+                    this.setState({selectedBase: base})
+                }
+            });
 
-        
-        if(this.state.baseId != 0){
             const data = new FormData();
             data.append("initials", this.state.initials);
             data.append("password", this.state.password);
 
             this.loginProvider.login(data).then((token) =>
-                this.context.logMeIn(this.state.initials, token, this.state.selectedBase),
+                {if(token){
+                    this.context.logMeIn(this.state.initials, token, this.state.selectedBase)
 
+                    Toast.show({
+                        position: 'top',
+                        type: 'success',
+                        text1: 'Hello',
+                        text2: 'Bienvenue 👋'
+                    })
+                }else{
+                    Toast.show({
+                        position: 'top',
+                        type: 'error',
+                        text1: 'Identifiants incorrects'
+                    })
+                }}
             )
             
-    
-            Toast.show({
-                position: 'top',
-                type: 'success',
-                text1: 'Hello',
-                text2: 'This is some something 👋'
-            })
-
         }else{
             Toast.show({
                 position: 'top',
                 type: 'error',
-                text1: 'Veuillez choisir une base'
+                text1: 'Veuillez remplir tous les champs'
             })
         }
-       
     }
 
 
     render() {
-        
         return (
             <View>
                 <View style={{flex:2, paddingTop: "20px"}}>

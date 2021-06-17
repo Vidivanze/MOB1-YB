@@ -86,10 +86,10 @@ class App extends Component {
 
 
   renderElement(){
-    if(this.state.token == null)
-      return <LoginStackNavigator></LoginStackNavigator>;
+    if(this.state.token)
+      return <HomeStackNavigator></HomeStackNavigator>;
     else 
-    return <HomeStackNavigator></HomeStackNavigator>;
+      return <LoginStackNavigator></LoginStackNavigator>;
   }
 
   render(){
@@ -106,9 +106,9 @@ class App extends Component {
             }
           }  
         >
-        <Toast ref={(ref) => Toast.setRef(ref)} />
           <NavigationContainer>
               {this.renderElement()}
+              <Toast ref={(ref) => Toast.setRef(ref)} />
           </NavigationContainer>
         </UserContext.Provider>
       </SafeAreaProvider>

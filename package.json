@@ -22,6 +22,7 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-41.0.0.tar.gz",
+    "react-native-animation-library": "0.0.8",
     "react-native-elements": "^3.4.1",
     "react-native-gesture-handler": "^1.10.3",
     "react-native-input-spinner": "^1.7.10",
