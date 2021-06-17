@@ -45,8 +45,9 @@ class Login extends Component {
             data.append("initials", this.state.initials);
             data.append("password", this.state.password);
 
-            this.loginProvider.login(data).then((res) =>
-                this.context.logMeIn(this.state.initials, res, this.state.selectedBase)
+            this.loginProvider.login(data).then((token) =>
+                this.context.logMeIn(this.state.initials, token, this.state.selectedBase),
+
             )
             
     
