@@ -5,6 +5,7 @@ import { Button , Input, Card} from 'react-native-elements';
 import { TouchableOpacity } from 'react-native';
 import InputSpinner from "react-native-input-spinner";
 import Moment from 'moment';
+import Toast from 'react-native-toast-message';
 
 import { UserContext } from '../context/UserContext';
 
@@ -30,7 +31,6 @@ class Reports extends Component {
 
         //If item is a pharmacheck
         if(saveItem.batch_id){
-            console.log(saveItem);
             const pharmaReport = new FormData();
             pharmaReport.append("batch_id", saveItem.batch_id);
             pharmaReport.append("drugsheet_id", saveItem.drugsheet_id);
@@ -39,10 +39,15 @@ class Reports extends Component {
             pharmaReport.append("date", saveItem.date);
 
             this.reportsProvider.savePharmaReport(pharmaReport, this.context.token).then((res) =>
-                console.log(res),
                 this.reportsProvider.getReports(this.context.token, this.context.selectedBase.id).then((result)=>
                     this.setState({ pharma: result.pharma, nova: result.nova, displayList: result.pharma})
-                )
+                ),
+
+                Toast.show({
+                    position: 'top',
+                    type: 'success',
+                    text1: 'Rapport modifié',
+                }),
             )
 
         //If item is a novacheck
@@ -56,10 +61,15 @@ class Reports extends Component {
             pharmaReport.append("drug_id", saveItem.drug_id);
 
             this.reportsProvider.saveNovaReport(pharmaReport, this.context.token).then((res) => 
-                console.log(res),
                 this.reportsProvider.getReports(this.context.token, this.context.selectedBase.id).then((result)=>
                     this.setState({ pharma: result.pharma, nova: result.nova, displayList: result.nova})
-                )
+                ),
+
+                Toast.show({
+                    position: 'top',
+                    type: 'success',
+                    text1: 'Rapport modifié',
+                }),
             )
         }
        
