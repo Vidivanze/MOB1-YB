@@ -14,6 +14,31 @@ class ReportsProvider {
         });
     }
     
+    saveNovaReport(data, token){
+        return API.post('novacheck', data, {
+            headers: {
+                'Content-Type' : 'multipart/form-data',
+                'Authorization': `Bearer ${token}`
+            }
+        }).then(res => res)
+        .catch(function (error) {
+            console.log(error)
+        });   
+        
+    }
+
+    savePharmaReport(data, token){
+        return API.post('pharmacheck', data, {
+            headers: {
+                'Content-Type' : 'multipart/form-data',
+                'Authorization': `Bearer ${token}`
+            }
+        }).then(res => res)
+        .catch(function (error) {
+            console.log(error)
+        });   
+        
+    }
 }
 
 
