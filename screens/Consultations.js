@@ -4,6 +4,7 @@ import { ListItem,  } from 'react-native-elements';
 import { TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import Moment from 'moment';
 
 
 import { UserContext } from '../context/UserContext';
@@ -40,15 +41,15 @@ class Consultations extends Component {
 
 
     render() { 
-
+        Moment.locale('fr');
         return (
             <ScrollView>
                 <View style={{flex: 8, flexDirection: "row", alignContent: "spave-between", alignItems: "center", justifyContent: 'center', paddingTop: "15px"}}>
                     <TouchableOpacity style={style.buttonCheck} onPress={ () => this.setState({displayList: this.state.shifts})}>
-                        <Text style={style.buttonText}>Garde</Text>
+                        <Text style={style.buttonText}>GARDE</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={style.buttonCheck} onPress={ () => this.setState({displayList: this.state.drugs})}>
-                        <Text style={style.buttonText}>Stup</Text>
+                        <Text style={style.buttonText}>STUP</Text>
                     </TouchableOpacity>
                 </View>
                 
@@ -58,7 +59,7 @@ class Consultations extends Component {
                         <ListItem key={i} bottomDivider onPress={() => this.props.navigation.navigate("Details", {report: item})}>
                             <ListItem.Content>
                             {(item.date) ? (
-                                <ListItem.Title>Le {item.date}</ListItem.Title>
+                                <ListItem.Title>Le {Moment(item.date).format('D MMMM YYYY')}</ListItem.Title>
                             ) : 
                                 <ListItem.Title>Semaine {item.week}</ListItem.Title>
                             }

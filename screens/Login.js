@@ -84,8 +84,6 @@ class Login extends Component {
                             <Picker.Item key={base.name} label={base.name} value={base.id} />))
                             : null
                         }   
-                        
-                        
                     </Picker>
                 </View>
 
