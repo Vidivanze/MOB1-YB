@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { StyleSheet, Text, View} from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { Button , Input} from 'react-native-elements';
 import Toast from 'react-native-toast-message';
@@ -56,7 +56,7 @@ class Login extends Component {
                     })
                 }else{
                     Toast.show({
-                        position: 'bottom',
+                        position: 'top',
                         type: 'error',
                         text1: 'Identifiants incorrects'
                     })
