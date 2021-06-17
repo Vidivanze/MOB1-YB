@@ -24,20 +24,57 @@ class Reports extends Component {
     }
     
 
-    saveReport(novaId, drugsheetId, start, end, date, drug_id){
-        if(novaId > 0){
-            
-        }else if(drugsheetId > 0){
-            
+    saveReport(index){
+        //Get the item to save
+        let saveItem = this.state.displayList[index];
+
+        //If item is a pharmacheck
+        if(saveItem.batch_id){
+            console.log(saveItem);
+            const pharmaReport = new FormData();
+            pharmaReport.append("batch_id", saveItem.batch_id);
+            pharmaReport.append("drugsheet_id", saveItem.drugsheet_id);
+            pharmaReport.append("start", saveItem.start);
+            pharmaReport.append("end", saveItem.end);
+            pharmaReport.append("date", saveItem.date);
+
+            this.reportsProvider.savePharmaReport(pharmaReport, this.context.token).then((res) =>
+                console.log(res),
+                this.reportsProvider.getReports(this.context.token, this.context.selectedBase.id).then((result)=>
+                    this.setState({ pharma: result.pharma, nova: result.nova, displayList: result.pharma})
+                )
+            )
+
+        //If item is a novacheck
+        }else if(saveItem.nova_id){
+            const pharmaReport = new FormData();
+            pharmaReport.append("nova_id", saveItem.nova_id);
+            pharmaReport.append("drugsheet_id", saveItem.drugsheet_id);
+            pharmaReport.append("start", saveItem.start);
+            pharmaReport.append("end", saveItem.end);
+            pharmaReport.append("date", saveItem.date);
+            pharmaReport.append("drug_id", saveItem.drug_id);
+
+            this.reportsProvider.saveNovaReport(pharmaReport, this.context.token).then((res) => 
+                console.log(res),
+                this.reportsProvider.getReports(this.context.token, this.context.selectedBase.id).then((result)=>
+                    this.setState({ pharma: result.pharma, nova: result.nova, displayList: result.nova})
+                )
+            )
         }
+       
     }
 
+    updateState(index, start, end){
+        let displayList = [ ...this.state.displayList ];
+        displayList[index] = {...displayList[index], start: start, end: end};
+        this.setState({ displayList });        
+    }
 
     componentDidMount(){
         this.reportsProvider.getReports(this.context.token, this.context.selectedBase.id).then((result)=>
             this.setState({ pharma: result.pharma, nova: result.nova, displayList: result.pharma})
         )
-        console.log(this.state.pharma)
     }
 
     render() { 
@@ -62,11 +99,11 @@ class Reports extends Component {
                 </View>
                 
                 {(this.state.displayList) ? (
-                    this.state.displayList.map((item, i) => (
+                    this.state.displayList.map((item, index) => (
                         <Card>
                             <Card.Title> {(item.nova) ?  'De '+item.drug+' de la nova '+item.nova : 'Du lot '+item.batch_number+' de '+item.drug}</Card.Title>
                             <Card.Divider/>
-                                <View key={item.id} style={{alignItems: "center"}}>
+                                <View style={{alignItems: "center"}}>
                                     <Text>pour le {Moment(item.date).format('D MMMM')}</Text>
                                 </View>
                                 
@@ -80,8 +117,8 @@ class Reports extends Component {
                                         color={"#2089dc"}
                                         colorMin={"#f04048"}
                                         value={item.start}
-                                        onChange={(num) => {
-                                            console.log(num);
+                                        onChange={(val) => {
+                                            this.updateState(index, val, item.end)
                                         }}
                                         skin={"Modern"}
                                         style={{marginLeft: "5px"}}
@@ -91,8 +128,8 @@ class Reports extends Component {
                                         color={"#2089dc"}
                                         colorMin={"#f04048"}
                                         value={item.end}
-                                        onChange={(num) => {
-                                            console.log(num);
+                                        onChange={(val) => {
+                                            this.updateState(index, item.start, val)
                                         }}
                                         skin={"Modern"}
                                         style={{marginLeft: "5px"}}
@@ -100,7 +137,7 @@ class Reports extends Component {
                                 </View>
 
                                 <View style={{justifyContent: 'center', alignItems: 'center', paddingTop: '10px'}}>
-                                    <TouchableOpacity style={style.sendButton} onPress={this.saveReport()}>
+                                    <TouchableOpacity style={style.sendButton} onPress={() => this.saveReport(index)}>
                                         <Text style={style.buttonText}>Envoyer</Text>
                                     </TouchableOpacity>
                                 </View>
@@ -112,8 +149,6 @@ class Reports extends Component {
                 
             </ScrollView>
         );
-
-
     }
 }
 
