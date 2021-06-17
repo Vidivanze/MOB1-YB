@@ -36,7 +36,7 @@ export class LoginStackNavigator extends Component{
   render(){
     return (
       <Stack.Navigator screenOptions={screenOptionStyle1}>
-        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="CSU APP" component={Login} />
       </Stack.Navigator>
     );
   }
