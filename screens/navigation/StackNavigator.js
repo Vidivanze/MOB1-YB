@@ -72,9 +72,7 @@ export class DefaultStackNavigator extends Component{
   }
 
   setModalVisible(state){
-    console.log(this.state.modalVisible)
     this.setState({modalVisible: state})
-    console.log(this.state.modalVisible)
   }
 
   render(){

@@ -27,7 +27,6 @@ class ConsultationDetails extends Component {
         this.consultationsProvider.getReportActionsInShift(this.context.token, this.state.report.id).then((result) =>
             this.setState({actionsInShift: result})
         )
-        console.log(this.state.actionsInShift)
     }
 
 
@@ -42,7 +41,6 @@ class ConsultationDetails extends Component {
 
                 <View style={{paddingTop: "15px"}}>
                     {(this.state.actionsInShift) ? (
-                        console.log(this.state.actionsInShift),
                         this.state.actionsInShift.map((item, i) => ( 
                             <ListItem key={i} bottomDivider>
                                 <ListItem.Content>
