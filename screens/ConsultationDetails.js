@@ -4,6 +4,8 @@ import { ListItem,  } from 'react-native-elements';
 import { TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import Moment from 'moment';
 
 
 import { UserContext } from '../context/UserContext';
@@ -32,11 +34,11 @@ class ConsultationDetails extends Component {
 
 
     render() { 
-
+        Moment.locale('fr');
         return (
             <ScrollView>
                 <View style={{paddingTop: "10px"}}>
-                    <Text>Dans le rapport du {this.state.report.date} à {this.context.selectedBase.name}</Text>
+                    <Text>Dans le rapport du {Moment(this.state.report.date).format('D MMMM YYYY')} à {this.context.selectedBase.name}</Text>
                 </View>
 
                 <View style={{paddingTop: "15px"}}>
@@ -46,9 +48,13 @@ class ConsultationDetails extends Component {
                                 <ListItem.Content>
                                     <ListItem.Title>{item.action}</ListItem.Title>
                                 {(item.day == 1) ? (
-                                    <ListItem.Subtitle>jour / {item.at}</ListItem.Subtitle>
+                                    <ListItem.Subtitle>              
+                                        <Ionicons name="sunny" size="20px"></Ionicons> {Moment(item.at).format('hh:mm:ss')}
+                                    </ListItem.Subtitle>
                                 ) : 
-                                    <ListItem.Subtitle>nuit / {item.at}</ListItem.Subtitle>
+                                    <ListItem.Subtitle>              
+                                        <Ionicons name="moon" size="20px"></Ionicons> {Moment(item.at).format('hh:mm:ss')}
+                                    </ListItem.Subtitle>
                                 }
                                 </ListItem.Content>
                             </ListItem>
