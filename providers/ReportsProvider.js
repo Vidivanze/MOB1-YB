@@ -8,7 +8,11 @@ class ReportsProvider {
                 'Authorization': `Bearer ${token}`
               }
         })
-        .then(res => res.data)
+        .then(function (res) {
+            let nova = [...res.data.nova];
+            let pharma = [...res.data.pharma];
+            return {nova: nova, pharma: pharma};
+        })
         .catch(function (error) {
             console.log(error);
         });
