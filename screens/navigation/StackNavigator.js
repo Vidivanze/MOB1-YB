@@ -184,6 +184,5 @@ const styles = StyleSheet.create({
   }
 });
   
-ConsultationsStackNavigator.contextType = UserContext;
-ReportsStackNavigator.contextType = UserContext;
+
 DefaultStackNavigator.contextType = UserContext;
