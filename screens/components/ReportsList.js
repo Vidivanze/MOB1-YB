@@ -47,17 +47,22 @@ class ReportsList extends Component {
         return (
             <ScrollView>
                 {(this.props.sort == "pharma") ? (
-                    this.state.pharma.map((item) => (
-                       <ReportCard sort={this.props.sort} item={item} getReports={this.getReports}></ReportCard>
-                    )))
-                    : null
+                    (this.state.nova) ? (
+                        this.state.pharma.map((item) => (
+                        <ReportCard sort={this.props.sort} item={item} getReports={this.getReports}></ReportCard>
+                        )))
+                    : <Text>Il n'y a pas de rapport pharma</Text>
+                ): null
                 }
 
                 {(this.props.sort == "nova") ? (
-                    this.state.nova.map((item) => (
-                       <ReportCard sort={this.props.sort} item={item} getReports={this.getReports}></ReportCard>
-                    )))
-                    : null
+                    (this.state.nova) ? (
+                        this.state.nova.map((item) => (
+                        <ReportCard sort={this.props.sort} item={item} getReports={this.getReports}></ReportCard>
+                        )))
+                    : <Text>Il n'y a pas de rapport nova</Text>
+                    
+                ): null
                 }           
             </ScrollView>
         );

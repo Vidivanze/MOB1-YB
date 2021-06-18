@@ -41,7 +41,7 @@ class ReportCard extends Component {
             try{
                 this.reportsProvider.savePharmaReport(pharmaReport, this.context.token).then((res) =>{
                     Toast.show({
-                        position: 'bottom',
+                        position: 'top',
                         type: 'success',
                         text1: 'Rapport modifié',
                     });
@@ -69,7 +69,7 @@ class ReportCard extends Component {
             try{
                 this.reportsProvider.saveNovaReport(novaReport, this.context.token).then((res) =>{
                     Toast.show({
-                        position: 'bottom',
+                        position: 'top',
                         type: 'success',
                         text1: 'Rapport modifié',
                     });
