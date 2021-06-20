@@ -26,19 +26,42 @@ class Login extends Component {
     }
     
     componentDidMount(){
-        this.loginProvider.getBases().then((result)=>
+        this.loginProvider.getBases().then(result => {
             this.setState({bases: result})
-        )
+        }, cause => {
+            Toast.show({
+                position: 'top',
+                type: 'error',
+                text1: 'Erreur API',
+                text2: 'Verifiez que vous êtes bien connecté au réseau'
+            })
+        }).catch(error => {
+            Toast.show({
+                position: 'top',
+                type: 'error',
+                text1: 'Erreur API',
+                text2: 'Verifiez que vous êtes bien connecté au réseau'
+            })
+        })
+
     }
 
     login(){
-        console.log(this.state.baseId)
         if(this.state.initials && this.state.password && this.state.baseId != '0'){
-            this.state.bases.map((base) => {
-                if(base.id == this.state.baseId){
-                    this.setState({selectedBase: base})
-                }
-            });
+            (this.state.bases) ? (
+                this.state.bases.map((base) => {
+                    if(base.id == this.state.baseId){
+                        this.setState({selectedBase: base})
+                    }
+                })
+            ) : 
+                Toast.show({
+                    position: 'top',
+                    type: 'error',
+                    text1: 'Erreur API',
+                    text2: 'Verifiez que vous êtes bien connecté au réseau'
+                })
+            
 
             const data = new FormData();
             data.append("initials", this.state.initials);
@@ -61,7 +84,14 @@ class Login extends Component {
                         text1: 'Identifiants incorrects'
                     })
                 }}
-            )
+            ).catch(error => {
+                Toast.show({
+                    position: 'top',
+                    type: 'error',
+                    text1: 'Erreur API',
+                    text2: 'Verifiez que vous êtes bien connecté au réseau'
+                })
+            })
             
         }else{
             Toast.show({
@@ -89,11 +119,11 @@ class Login extends Component {
                     </View>
                     <View style={{alignItems: 'center', paddingBottom: 10}}>
                         <Picker name="base" style={{ height: 35, width: 300, marginTop: 10}} onChange={val => this.setState({ baseId: val.target.value })}>
-                            <Picker.Item label="Veuillez choisir une base" value="0" />
-                            {(this.state.bases) ? (
+                            {(this.state.bases && this.state.bases.length) ? (
+                                <Picker.Item label="Veuillez choisir une base" value="0" />,
                                 this.state.bases.map(base =>
-                                <Picker.Item key={base.name} label={base.name} value={base.id} />))
-                                : null
+                                    <Picker.Item key={base.name} label={base.name} value={base.id} />)
+                            ): <Picker.Item label="Aucune base disponnible" value="0" />
                             }   
                         </Picker>
                     </View>
