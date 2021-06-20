@@ -14,7 +14,6 @@ class ReportsProvider {
             return {nova: nova, pharma: pharma};
         })
         .catch(function (error) {
-            console.log(error);
         });
     }
     
@@ -24,11 +23,7 @@ class ReportsProvider {
                 'Content-Type' : 'multipart/form-data',
                 'Authorization': `Bearer ${token}`
             }
-        }).then(res => res)
-        .catch(function (error) {
-            console.log(error)
-        });   
-        
+        }).then(res => res)        
     }
 
     savePharmaReport(data, token){
@@ -38,9 +33,6 @@ class ReportsProvider {
                 'Authorization': `Bearer ${token}`
             }
         }).then(res => res)
-        .catch(function (error) {
-            console.log(error)
-        });   
         
     }
 }

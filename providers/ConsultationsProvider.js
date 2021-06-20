@@ -9,9 +9,6 @@ class ConsultationsProvider {
               }
         })
         .then(res => res.data)
-        .catch(function (error) {
-            console.log(error);
-        });
     }
 
     getReportActionsInShift(token, id){
@@ -21,9 +18,6 @@ class ConsultationsProvider {
               }
         })
         .then(res => res.data.data)
-        .catch(function (error) {
-            console.log(error);
-        });
     }
     
 }

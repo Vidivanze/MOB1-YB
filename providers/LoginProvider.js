@@ -5,9 +5,6 @@ class LoginProvider {
     getBases(){
         return API.get('bases')
         .then(res => res.data)
-        .catch(function (error) {
-            console.log(error);
-        });
     }
 
     login(data){
@@ -16,10 +13,6 @@ class LoginProvider {
                 'Content-Type' : 'multipart/form-data'
             }
         }).then(res => res.data['token'])
-        .catch(function (error) {
-            
-        });   
-        
     }
     
 }
