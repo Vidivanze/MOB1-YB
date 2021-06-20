@@ -15,6 +15,7 @@ class ConsultationDetails extends Component {
         this.state = {
             report: props.route.params.report,
             actionsInShift: [],
+            noDataMessage: ""
         }
         
         this.consultationsProvider = new ConsultationsProvider();
@@ -22,9 +23,13 @@ class ConsultationDetails extends Component {
     }
     
     componentDidMount() {        
-        this.consultationsProvider.getReportActionsInShift(this.context.token, this.state.report.id).then((result) =>
-            this.setState({actionsInShift: result})
-        )
+        this.consultationsProvider.getReportActionsInShift(this.context.token, this.state.report.id).then((result) => {
+            this.setState({actionsInShift: result, noDataMessage: "Il n'y a pas d'actions"});
+        },cause => {
+            this.setState({noDataMessage: "Il n'y a pas d'actions"})
+        }).catch (error => {
+            this.setState({noDataMessage: "Il n'y a pas d'actions"})
+        })
     }
 
 
@@ -56,7 +61,7 @@ class ConsultationDetails extends Component {
                             </ListItem>
                         ))
                     ) : <View style={{paddingTop: "30px", justifyContent: 'center', alignItems: 'center'}}>
-                            <Text style={{fontWeight: 'bold'}}>Il n'y a pas d'actions</Text>
+                            <Text style={{fontWeight: 'bold'}}>{this.state.noDataMessage}</Text>
                         </View>
                     }
                 </View>

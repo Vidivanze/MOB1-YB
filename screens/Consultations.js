@@ -20,7 +20,8 @@ class Consultations extends Component {
         this.state = {
             shifts: [],
             drugs: [],
-            displayList: []
+            displayList: [],
+            noDataMessage: ""
         }
         
         this.consultationsProvider = new ConsultationsProvider();
@@ -30,6 +31,7 @@ class Consultations extends Component {
         this.consultationsProvider.getReports(this.context.token).then(result => {
             this.setState({ shifts: result.shift, drugs: result.drug, displayList: result.shift})
         }, cause => {
+                this.setState({noDataMessage: "Il n'y a pas de données"})
                 Toast.show({
                     position: 'top',
                     type: 'error',
@@ -38,6 +40,7 @@ class Consultations extends Component {
                 })
             }
         ).catch( error => {
+            this.setState({noDataMessage: "Il n'y a pas de données"})
             Toast.show({
                 position: 'top',
                 type: 'error',
@@ -78,7 +81,7 @@ class Consultations extends Component {
                         </ListItem>
                         ))
                         ) : <View style={{paddingTop: "30px", justifyContent: 'center', alignItems: 'center'}}>
-                                <Text style={{fontWeight: 'bold'}}>Il n'y a pas de données</Text>
+                                <Text style={{fontWeight: 'bold'}}>{this.state.noDataMessage}</Text>
                             </View>
                     }
                 </View>

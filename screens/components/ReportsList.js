@@ -16,7 +16,8 @@ class ReportsList extends Component {
             pharma: [],
             nova: [],
             sort: 'pharma',
-            refresh: false
+            refresh: false,
+            noDataMessage: ""
         }
 
         this.reportsProvider = new ReportsProvider();
@@ -33,8 +34,9 @@ class ReportsList extends Component {
         this.reportsProvider.getReports(this.context.token, this.context.selectedBase.id).then((result)=>{
                 //Without this line, only the last element disapear
                 this.setState({ pharma: [], nova: []});
-                this.setState({ pharma: result.pharma, nova: result.nova});
+                this.setState({ pharma: result.pharma, nova: result.nova, noDataMessage: "Il n'y a pas de rapport diponnible"});
             }, cause => {
+                this.setState({noDataMessage: "Il n'y a pas de rapport diponnible"})
                 Toast.show({
                     position: 'top',
                     type: 'error',
@@ -43,6 +45,7 @@ class ReportsList extends Component {
                 })
             }
         ).catch (error => {
+            this.setState({noDataMessage: "Il n'y a pas de rapport diponnible"})
             Toast.show({
                 position: 'top',
                 type: 'error',
@@ -58,12 +61,12 @@ class ReportsList extends Component {
         return (
             <ScrollView>
                 {(this.props.sort == "pharma") ? (
-                    (this.state.nova && this.state.nova.length) ? (
+                    (this.state.pharma && this.state.pharma.length) ? (
                         this.state.pharma.map((item) => (
                             <ReportCard sort={this.props.sort} item={item} getReports={this.getReports}></ReportCard>
                         ))
                     ):  <View style={{paddingTop: "30px", justifyContent: 'center', alignItems: 'center'}}>
-                            <Text style={{fontWeight: 'bold'}}>Il n'y a pas de rapport pharma</Text>
+                            <Text style={{fontWeight: 'bold'}}>{this.state.noDataMessage}</Text>
                         </View>
                 ): null
                 }
@@ -74,7 +77,7 @@ class ReportsList extends Component {
                             <ReportCard sort={this.props.sort} item={item} getReports={this.getReports}></ReportCard>
                         ))
                     ): <View style={{paddingTop: "30px", justifyContent: 'center', alignItems: 'center'}}>
-                            <Text style={{fontWeight: 'bold'}}>Il n'y a pas de rapport nova</Text>
+                            <Text style={{fontWeight: 'bold'}}>{this.state.noDataMessage}</Text>
                         </View>
                     
                 ): null
