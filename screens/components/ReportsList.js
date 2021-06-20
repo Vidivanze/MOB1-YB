@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, StyleSheet, ScrollView} from 'react-native';
+import { Text, StyleSheet, ScrollView, View} from 'react-native';
 import Moment from 'moment';
 import Toast from 'react-native-toast-message';
 
@@ -62,7 +62,9 @@ class ReportsList extends Component {
                         this.state.pharma.map((item) => (
                             <ReportCard sort={this.props.sort} item={item} getReports={this.getReports}></ReportCard>
                         ))
-                    ): <Text>Il n'y a pas de rapport pharma</Text>
+                    ):  <View style={{paddingTop: "30px", justifyContent: 'center', alignItems: 'center'}}>
+                            <Text style={{fontWeight: 'bold'}}>Il n'y a pas de rapport pharma</Text>
+                        </View>
                 ): null
                 }
 
@@ -71,7 +73,9 @@ class ReportsList extends Component {
                         this.state.nova.map((item) => (
                             <ReportCard sort={this.props.sort} item={item} getReports={this.getReports}></ReportCard>
                         ))
-                    ): <Text>Il n'y a pas de rapport nova</Text>
+                    ): <View style={{paddingTop: "30px", justifyContent: 'center', alignItems: 'center'}}>
+                            <Text style={{fontWeight: 'bold'}}>Il n'y a pas de rapport nova</Text>
+                        </View>
                     
                 ): null
                 }           

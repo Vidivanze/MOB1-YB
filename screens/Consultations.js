@@ -77,7 +77,9 @@ class Consultations extends Component {
                             <ListItem.Chevron />
                         </ListItem>
                         ))
-                        ) : <Text>Il n'y a pas de données</Text>
+                        ) : <View style={{paddingTop: "30px", justifyContent: 'center', alignItems: 'center'}}>
+                                <Text style={{fontWeight: 'bold'}}>Il n'y a pas de données</Text>
+                            </View>
                     }
                 </View>
             </ScrollView>
