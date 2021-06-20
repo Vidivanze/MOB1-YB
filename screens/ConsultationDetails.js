@@ -38,7 +38,7 @@ class ConsultationDetails extends Component {
                 </View>
 
                 <View style={{paddingTop: "15px"}}>
-                    {(this.state.actionsInShift) ? (
+                    {(this.state.actionsInShift && this.state.actionsInShift.length) ? (
                         this.state.actionsInShift.map((item, i) => ( 
                             <ListItem key={i} bottomDivider>
                                 <ListItem.Content>
@@ -55,7 +55,9 @@ class ConsultationDetails extends Component {
                                 </ListItem.Content>
                             </ListItem>
                         ))
-                    ) : null
+                    ) : <View style={{paddingTop: "30px", justifyContent: 'center', alignItems: 'center'}}>
+                            <Text style={{fontWeight: 'bold'}}>Il n'y a pas d'actions</Text>
+                        </View>
                     }
                 </View>
             </ScrollView>
