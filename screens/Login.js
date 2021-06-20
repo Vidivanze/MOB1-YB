@@ -16,7 +16,7 @@ class Login extends Component {
             bases: [],
             initials: null,
             password: null,
-            baseId: null,
+            baseId: 0,
             selectedBase: null,
         }
         
@@ -47,7 +47,7 @@ class Login extends Component {
     }
 
     login(){
-        if(this.state.initials && this.state.password && this.state.baseId != '0'){
+        if(this.state.initials && this.state.password && this.state.baseId){
             (this.state.bases) ? (
                 this.state.bases.map((base) => {
                     if(base.id == this.state.baseId){
@@ -81,15 +81,16 @@ class Login extends Component {
                     Toast.show({
                         position: 'top',
                         type: 'error',
-                        text1: 'Identifiants incorrects'
+                        text1: 'Identifiants incorrects',
+                        text2: 'Verrifiez votre saisie'
                     })
                 }}
             ).catch(error => {
                 Toast.show({
                     position: 'top',
                     type: 'error',
-                    text1: 'Erreur API',
-                    text2: 'Verifiez que vous êtes bien connecté au réseau'
+                    text1: 'Identifiants incorrects',
+                    text2: 'Verifiez votre saisie'
                 })
             })
             
