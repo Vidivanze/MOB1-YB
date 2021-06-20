@@ -51,7 +51,7 @@ class ReportCard extends Component {
                 Toast.show({
                     position: 'top',
                     type: 'error',
-                    text1: 'erreur d\'enregistrement',
+                    text1: 'Erreur d\'enregistrement',
                 })
             }
 
@@ -79,7 +79,7 @@ class ReportCard extends Component {
                 Toast.show({
                     position: 'top',
                     type: 'error',
-                    text1: 'erreur d\'enregistrement',
+                    text1: 'Erreur d\'enregistrement',
                 })
             }
         }
