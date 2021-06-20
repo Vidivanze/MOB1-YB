@@ -34,8 +34,23 @@ class ReportsList extends Component {
                 //Without this line, only the last element disapear
                 this.setState({ pharma: [], nova: []});
                 this.setState({ pharma: result.pharma, nova: result.nova});
+            }, cause => {
+                Toast.show({
+                    position: 'top',
+                    type: 'error',
+                    text1: 'Erreur Réseau',
+                    text2: 'Verifiez que votre appareil est bien connecté'
+                })
             }
-        )
+        ).catch (error => {
+            Toast.show({
+                position: 'top',
+                type: 'error',
+                text1: 'Erreur Réseau',
+                text2: 'Verifiez que votre appareil est bien connecté'
+            })
+        })
+    
     }
 
     render() { 
@@ -43,20 +58,20 @@ class ReportsList extends Component {
         return (
             <ScrollView>
                 {(this.props.sort == "pharma") ? (
-                    (this.state.nova) ? (
+                    (this.state.nova && this.state.nova.length) ? (
                         this.state.pharma.map((item) => (
-                        <ReportCard sort={this.props.sort} item={item} getReports={this.getReports}></ReportCard>
-                        )))
-                    : <Text>Il n'y a pas de rapport pharma</Text>
+                            <ReportCard sort={this.props.sort} item={item} getReports={this.getReports}></ReportCard>
+                        ))
+                    ): <Text>Il n'y a pas de rapport pharma</Text>
                 ): null
                 }
 
                 {(this.props.sort == "nova") ? (
-                    (this.state.nova) ? (
+                    (this.state.nova && this.state.nova.length) ? (
                         this.state.nova.map((item) => (
-                        <ReportCard sort={this.props.sort} item={item} getReports={this.getReports}></ReportCard>
-                        )))
-                    : <Text>Il n'y a pas de rapport nova</Text>
+                            <ReportCard sort={this.props.sort} item={item} getReports={this.getReports}></ReportCard>
+                        ))
+                    ): <Text>Il n'y a pas de rapport nova</Text>
                     
                 ): null
                 }           
