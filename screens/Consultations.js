@@ -1,21 +1,17 @@
 import React, { Component } from 'react';
 import { View, Text, Button, TextInput, StyleSheet, ScrollView, Image} from 'react-native';
-import { ListItem,  } from 'react-native-elements';
+import { ListItem } from 'react-native-elements';
 import { TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Moment from 'moment';
-
+import Toast from 'react-native-toast-message';
 
 import { UserContext } from '../context/UserContext';
 import ConsultationsProvider from '../providers/ConsultationsProvider';
 
 
 const Stack = createStackNavigator();
-
-function consultationsList() {
-    
-}
 
 
 class Consultations extends Component {
@@ -29,13 +25,27 @@ class Consultations extends Component {
         }
         
         this.consultationsProvider = new ConsultationsProvider();
-
     }
     
     componentDidMount() {        
-        this.consultationsProvider.getReports(this.context.token).then((result)=>
+        this.consultationsProvider.getReports(this.context.token).then(result => {
             this.setState({ shifts: result.shift, drugs: result.drug, displayList: result.shift})
-        )
+        }, cause => {
+                Toast.show({
+                    position: 'top',
+                    type: 'error',
+                    text1: 'Erreur Réseau',
+                    text2: 'Verifiez que votre appareil est bien connecté'
+                })
+            }
+        ).catch( error => {
+            Toast.show({
+                position: 'top',
+                type: 'error',
+                text1: 'Erreur Réseau',
+                text2: 'Verifiez que votre appareil est bien connecté'
+            })
+        })
     }
 
 
@@ -54,7 +64,7 @@ class Consultations extends Component {
                 </View>
                 
                 <View style={{flex:2, paddingTop: "15px"}}>
-                    {(this.state.displayList) ? (
+                    {(this.state.displayList && this.state.displayList.length) ? (
                         this.state.displayList.map((item, i) => (
                         <ListItem key={i} bottomDivider onPress={() => this.props.navigation.navigate("Details", {report: item})}>
                             <ListItem.Content>
@@ -67,8 +77,8 @@ class Consultations extends Component {
                             </ListItem.Content>
                             <ListItem.Chevron />
                         </ListItem>
-                        )))
-                        : null
+                        ))
+                        ) : <Text>Il n'y a pas de données</Text>
                     }
                 </View>
             </ScrollView>
