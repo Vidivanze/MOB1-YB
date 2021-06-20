@@ -37,7 +37,6 @@ class ReportCard extends Component {
             pharmaReport.append("end", this.state.end);
             pharmaReport.append("date", this.state.item.date);
 
-            try{
                 this.reportsProvider.savePharmaReport(pharmaReport, this.context.token).then((res) =>{
                     Toast.show({
                         position: 'top',
@@ -45,15 +44,21 @@ class ReportCard extends Component {
                         text1: 'Rapport modifié',
                     });
                     this.props.getReports();
-                }
-                )
-            }catch(exception){
-                Toast.show({
-                    position: 'top',
-                    type: 'error',
-                    text1: 'Erreur d\'enregistrement',
+                }, cause => {
+                        Toast.show({
+                            position: 'top',
+                            type: 'error',
+                            text1: 'Erreur d\'enregistrement',
+                        })
+                    }
+                ).catch (error => {
+                    Toast.show({
+                        position: 'top',
+                        type: 'error',
+                        text1: 'Erreur d\'enregistrement',
+                    })
                 })
-            }
+           
 
         //If item is a novacheck
         }else if(this.props.sort == 'nova'){
@@ -65,23 +70,29 @@ class ReportCard extends Component {
             novaReport.append("date", this.state.item.date);
             novaReport.append("drug_id", this.state.item.drug_id);
 
-            try{
-                this.reportsProvider.saveNovaReport(novaReport, this.context.token).then((res) =>{
-                    Toast.show({
-                        position: 'top',
-                        type: 'success',
-                        text1: 'Rapport modifié',
-                    });
-                    this.props.getReports();
-                }
-              )
-            }catch(exception){
+        
+            this.reportsProvider.saveNovaReport(novaReport, this.context.token).then((res) =>{
+                Toast.show({
+                    position: 'top',
+                    type: 'success',
+                    text1: 'Rapport modifié',
+                });
+                this.props.getReports();
+            }, cause => {
                 Toast.show({
                     position: 'top',
                     type: 'error',
                     text1: 'Erreur d\'enregistrement',
                 })
             }
+            ).catch (error => {
+                Toast.show({
+                    position: 'top',
+                    type: 'error',
+                    text1: 'Erreur d\'enregistrement',
+                })
+            })
+            
         }
        
     }
