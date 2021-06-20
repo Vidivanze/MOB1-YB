@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text, Button, TextInput, StyleSheet, ScrollView, Image} from 'react-native';
-import { ListItem,  } from 'react-native-elements';
-import { TouchableOpacity } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { View, StyleSheet, ScrollView, Text,} from 'react-native';
+import { ListItem } from 'react-native-elements';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Moment from 'moment';
-
 
 import { UserContext } from '../context/UserContext';
 import ConsultationsProvider from '../providers/ConsultationsProvider';

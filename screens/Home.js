@@ -1,20 +1,12 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, StyleSheet} from 'react-native';
-import { Picker } from '@react-native-picker/picker';
-import { Button , Input} from 'react-native-elements';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import { UserContext } from '../context/UserContext';
 
-
-import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import StackNavigator, { ConsultationsStackNavigator, ReportsStackNavigator } from './navigation/StackNavigator';
 
-import Reports from './Reports';
-import Consultations from './Consultations';
-import ConsultationsDetails from './ConsultationDetails';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();

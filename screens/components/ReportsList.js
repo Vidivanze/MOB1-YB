@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, StyleSheet, ScrollView} from 'react-native';
-import { Picker } from '@react-native-picker/picker';
-import { Button , Input, Card} from 'react-native-elements';
-import { TouchableOpacity } from 'react-native';
-import InputSpinner from "react-native-input-spinner";
+import { Text, StyleSheet, ScrollView} from 'react-native';
 import Moment from 'moment';
 import Toast from 'react-native-toast-message';
 

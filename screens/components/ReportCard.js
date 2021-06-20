@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, StyleSheet, ScrollView} from 'react-native';
-import { Picker } from '@react-native-picker/picker';
-import { Button , Input, Card} from 'react-native-elements';
+import { View, StyleSheet, Text } from 'react-native';
+import {Card} from 'react-native-elements';
 import { TouchableOpacity } from 'react-native';
 import InputSpinner from "react-native-input-spinner";
 import Moment from 'moment';
