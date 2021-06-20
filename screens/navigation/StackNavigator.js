@@ -1,11 +1,10 @@
 import React from 'react';
 import { createStackNavigator } from "@react-navigation/stack";
 import { Component } from 'react';
-import { Pressable, StyleSheet, Text, View, Modal} from 'react-native';
+import { Modal, Pressable, StyleSheet, Text, View} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import { UserContext } from '../../context/UserContext';
-
 import Login from "../Login";
 import Home from "../Home";
 import Consultations from '../Consultations';

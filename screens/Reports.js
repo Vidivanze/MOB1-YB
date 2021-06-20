@@ -1,16 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, StyleSheet, ScrollView} from 'react-native';
-import { Picker } from '@react-native-picker/picker';
-import { Button , Input, Card} from 'react-native-elements';
-import { TouchableOpacity } from 'react-native';
-import InputSpinner from "react-native-input-spinner";
-import Moment from 'moment';
-import Toast from 'react-native-toast-message';
+import { View, StyleSheet, ScrollView, Text, TouchableOpacity} from 'react-native';
 
 import { UserContext } from '../context/UserContext';
-
-import ReportsProvider from '../providers/ReportsProvider';
-import ReportCard from './components/ReportCard';
 import ReportsList from './components/ReportsList';
 
 class Reports extends Component {

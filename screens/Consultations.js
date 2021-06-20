@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text, Button, TextInput, StyleSheet, ScrollView, Image} from 'react-native';
+import { View, StyleSheet, ScrollView, Text, TouchableOpacity} from 'react-native';
 import { ListItem } from 'react-native-elements';
-import { TouchableOpacity } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+
 import Moment from 'moment';
 import Toast from 'react-native-toast-message';
 

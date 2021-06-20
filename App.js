@@ -1,7 +1,6 @@
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import React from 'react';
-import { Component } from 'react';
-import { StyleSheet, Text } from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet } from 'react-native';
 import Toast from 'react-native-toast-message';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 

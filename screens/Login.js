@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View} from 'react-native';
-import { Picker } from '@react-native-picker/picker';
 import { Button , Input} from 'react-native-elements';
+
+import { Picker } from '@react-native-picker/picker';
 import Toast from 'react-native-toast-message';
 
-import axios from 'axios';
 import LoginProvider from '../providers/LoginProvider';   
 import { UserContext } from '../context/UserContext';
 
