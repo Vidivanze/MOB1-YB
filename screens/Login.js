@@ -119,8 +119,8 @@ class Login extends Component {
                     </View>
                     <View style={{alignItems: 'center', paddingBottom: 10}}>
                         <Picker name="base" style={{ height: 35, width: 300, marginTop: 10}} onChange={val => this.setState({ baseId: val.target.value })}>
+                            <Picker.Item label="Veuillez choisir une base" value="0" />
                             {(this.state.bases && this.state.bases.length) ? (
-                                <Picker.Item label="Veuillez choisir une base" value="0" />,
                                 this.state.bases.map(base =>
                                     <Picker.Item key={base.name} label={base.name} value={base.id} />)
                             ): <Picker.Item label="Aucune base disponnible" value="0" />
