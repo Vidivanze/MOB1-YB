@@ -7,6 +7,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import StackNavigator, { ConsultationsStackNavigator, ReportsStackNavigator, TimesheetsStackNavigator } from './navigation/StackNavigator';
 
+import TimesheetsProvider from '../providers/TimesheetsProvider';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -17,10 +18,33 @@ class Home extends Component {
     constructor(props){
         super(props);
         this.state = {
-        
+          timeSheetsAmout: null
         }
+
+        this.timesheetsProvider = new TimesheetsProvider();
     }
     
+    componentDidMount(){
+      this.timesheetsProvider.countUncheckedTimesheets(this.context.token).then(res => {
+        this.setState({timeSheetsAmout: res})
+        console.log(res)
+        console.log(this.state.timeSheetsAmout)
+      }, cause => {
+          Toast.show({
+              position: 'top',
+              type: 'error',
+              text1: 'Erreur Réseau',
+              text2: 'Verifiez que votre appareil est bien connecté'
+          })
+        }).catch (error => {
+          Toast.show({
+              position: 'top',
+              type: 'error',
+              text1: 'Erreur Réseau',
+              text2: 'Verifiez que votre appareil est bien connecté'
+          })
+      })
+    }
 
     render() { 
       return (
@@ -48,7 +72,7 @@ class Home extends Component {
         >
           <Tab.Screen name="Consulter" component={ConsultationsStackNavigator}/>
           <Tab.Screen name="Rapporter" component={ReportsStackNavigator} />
-          <Tab.Screen name="Timesheets" component={TimesheetsStackNavigator} options={{ tabBarBadge: 3 }}/>
+          <Tab.Screen name="Timesheets" component={TimesheetsStackNavigator} options={{ tabBarBadge: this.state.timeSheetsAmout }}/>
         </Tab.Navigator>
         
       );
