@@ -18,6 +18,8 @@ class TimesheetsList extends Component {
         }
 
         this.timesheetsProvider = new TimesheetsProvider();
+        this.getTimesheets = this.getTimesheets.bind(this);
+        
     }
     
 
@@ -44,6 +46,7 @@ class TimesheetsList extends Component {
     }
 
     getTimesheets(){
+        this.setState({uncheckedTimesheets: []})
         this.timesheetsProvider.getUncheckedTimesheets(this.context.token).then((result) => {
             this.setState({ uncheckedTimesheets: result})
             }, cause => {
@@ -76,7 +79,7 @@ class TimesheetsList extends Component {
                 </View>
                 {(this.state.uncheckedTimesheets && this.state.uncheckedTimesheets.length) ? (
                     this.state.uncheckedTimesheets.map((item) => (
-                        <TimesheetCard item={item} getUncheckedTimesheets={this.getUncheckedTimesheets}></TimesheetCard>
+                        <TimesheetCard item={item} getTimesheets={this.getTimesheets}></TimesheetCard>
                     ))
                 ):  <View style={{paddingTop: "30px", justifyContent: 'center', alignItems: 'center'}}>
                         <Text style={{fontWeight: 'bold'}}>{this.state.noDataMessage}</Text>

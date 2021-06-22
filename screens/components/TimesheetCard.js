@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
-import {Card} from 'react-native-elements';
-import { TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { Card, Input } from 'react-native-elements';
 import Moment from 'moment';
+import { Picker } from '@react-native-picker/picker';
 import Toast from 'react-native-toast-message';
 
 import { UserContext } from '../../context/UserContext';
 
-import ReportsProvider from '../../providers/ReportsProvider';
+import TimesheetsProvider from '../../providers/TimesheetsProvider';
 
 class TimesheetCard extends Component {
 
@@ -15,16 +15,49 @@ class TimesheetCard extends Component {
         super(props);
         this.state = {
             item: [],
+            itemType: "",
+            confirmation: "",
+            reason: "",
         }
 
-        this.reportsProvider = new ReportsProvider();
+        this.timesheetsProvider = new TimesheetsProvider();
     }
     
     componentDidMount(){
-        this.setState({ item: this.props.item })
+        this.setState({ item: this.props.item, itemType: this.props.item.worktime.type })
     }
 
-  
+    saveTimesheet(){
+        const timesheet = new FormData();
+        console.log(this.state.item.id)
+        console.log(+this.state.confirmation)
+        timesheet.append("id", this.state.item.id);
+        timesheet.append("confirmation", this.state.confirmation);
+        timesheet.append("reason", this.state.reason);
+
+        this.timesheetsProvider.confirmWorkPlan(timesheet, this.context.token).then((res) =>{
+            Toast.show({
+                position: 'top',
+                type: 'success',
+                text1: 'Horaire envoyé',
+            });
+            this.props.getTimesheets();
+        }, cause => {
+                Toast.show({
+                    position: 'top',
+                    type: 'error',
+                    text1: 'Erreur d\'enregistrement',
+                })
+            }
+        ).catch (error => {
+            Toast.show({
+                position: 'top',
+                type: 'error',
+                text1: 'Erreur d\'enregistrement',
+            })
+            console.log(error)
+        })
+    }
 
 
 
@@ -32,19 +65,26 @@ class TimesheetCard extends Component {
         Moment.locale('fr');
         return (
             <Card>
-                <Card.Title> {Moment(this.state.item.date).format('dddd DD MMMM')}</Card.Title>
+                <Card.Title>{this.state.itemType +" - "+ Moment(this.state.item.date).format('dddd DD MMMM')}</Card.Title>
                 <Card.Divider/>
-                    <View style={{alignItems: "center"}}>
-                        <Text>pour le {Moment(this.state.item.date).format('dddd DD MMMM')}</Text>
-                    </View>
                     
-                    <View style={style.amountHeader}>
-                        <Text style={{paddingRight: "85px"}}>Jour</Text>
-                        <Text style={{paddingLeft: "40px"}}>Nuit</Text>
+                    <View style={{alignItems: 'center', paddingBottom: 10}}>
+                        <Picker name="base" style={{ height: 20, width: 100, marginTop: 10}} setSelectedValue={this.state.item.confirmation} onChange={val => this.setState({ confirmation: val.target.value })}>
+                            <Picker.Item key="null" label="Inconnu" value="null" />
+                            <Picker.Item key="0" label="À discuter" value="0" />
+                            <Picker.Item key="1" label="Confirmer" value="1" />
+                        </Picker>
                     </View>
-                
+
+
+                    {(this.state.confirmation == '0') ?
+                        <View style={{alignItems: "center"}}>                        
+                            <Input placeholder="Raison" name="reason" onChange={val => this.setState({ reason: val.target.value })}/>
+                        </View>
+                    : null }
+
                     <View style={{justifyContent: 'center', alignItems: 'center', paddingTop: '10px'}}>
-                        <TouchableOpacity style={style.sendButton}>
+                        <TouchableOpacity style={style.sendButton} onPress={() => this.saveTimesheet()}>
                             <Text style={style.buttonText}>Envoyer</Text>
                         </TouchableOpacity>
                     </View>
