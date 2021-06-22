@@ -50,7 +50,7 @@ class TimesheetsList extends Component {
         this.timesheetsProvider.getUncheckedTimesheets(this.context.token).then((result) => {
             this.setState({ uncheckedTimesheets: result})
             }, cause => {
-                this.setState({noDataMessage: "Il n'y a pas de rapport diponnible"})
+                this.setState({noDataMessage: "Vous avez confirmé tous vos horaires"})
                 Toast.show({
                     position: 'top',
                     type: 'error',
@@ -59,7 +59,7 @@ class TimesheetsList extends Component {
                 })
             }
         ).catch (error => {
-            this.setState({noDataMessage: "Il n'y a pas de rapport diponnible"})
+            this.setState({noDataMessage: "Vous avez confirmé tous vos horaires"})
             Toast.show({
                 position: 'top',
                 type: 'error',
