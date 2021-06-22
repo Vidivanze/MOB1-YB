@@ -26,6 +26,10 @@ class Home extends Component {
     }
     
     componentDidMount(){
+      this.countUnchecked()
+    }
+
+    countUnchecked(){
       this.timesheetsProvider.countUncheckedTimesheets(this.context.token).then(res => {
         this.setState({timesheetsAmout: res})
       }, cause => {
@@ -44,7 +48,6 @@ class Home extends Component {
           })
       })
     }
-
     render() { 
       return (
         <Tab.Navigator
