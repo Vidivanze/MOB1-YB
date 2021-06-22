@@ -24,24 +24,6 @@ class TimesheetsList extends Component {
     
 
     componentDidMount(){
-        this.timesheetsProvider.countUncheckedTimesheets(this.context.token).then(res => {
-            this.setState({timesheetsAmout: res});
-          }, cause => {
-              Toast.show({
-                  position: 'top',
-                  type: 'error',
-                  text1: 'Erreur Réseau',
-                  text2: 'Verifiez que votre appareil est bien connecté'
-              })
-            }).catch (error => {
-              Toast.show({
-                  position: 'top',
-                  type: 'error',
-                  text1: 'Erreur Réseau',
-                  text2: 'Verifiez que votre appareil est bien connecté'
-              })
-          })
-
         this.getTimesheets();
     }
 
@@ -67,6 +49,24 @@ class TimesheetsList extends Component {
                 text2: 'Verifiez que votre appareil est bien connecté'
             })
         })
+        
+        this.timesheetsProvider.countUncheckedTimesheets(this.context.token).then(res => {
+            this.setState({timesheetsAmout: res});
+          }, cause => {
+              Toast.show({
+                  position: 'top',
+                  type: 'error',
+                  text1: 'Erreur Réseau',
+                  text2: 'Verifiez que votre appareil est bien connecté'
+              })
+            }).catch (error => {
+              Toast.show({
+                  position: 'top',
+                  type: 'error',
+                  text1: 'Erreur Réseau',
+                  text2: 'Verifiez que votre appareil est bien connecté'
+              })
+          })
     }
     
 
