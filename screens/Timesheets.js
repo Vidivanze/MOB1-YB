@@ -10,16 +10,13 @@ class Timesheets extends Component {
         super(props);
         this.state = {
         }
-
-        
-    }
-    
+    }   
 
     render() { 
         return (
             <ScrollView>
                 <View>
-                    <TimesheetsList sort={this.state.sort}></TimesheetsList>    
+                    <TimesheetsList></TimesheetsList>    
                 </View>  
             </ScrollView>
         );
