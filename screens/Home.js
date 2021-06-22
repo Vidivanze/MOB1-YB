@@ -56,7 +56,7 @@ class Home extends Component {
                 iconName = focused ? 'ios-list' : 'ios-list';
               } else if (route.name === 'Rapporter') {
                 iconName = focused ? 'ios-medkit' : 'ios-medkit';
-              }else if (route.name === 'Timesheets'){
+              }else if (route.name === 'Horaire à confirmer'){
                 iconName = focused ? 'alarm-outline' : 'alarm-outline';
               }
 
@@ -71,7 +71,9 @@ class Home extends Component {
         >
           <Tab.Screen name="Consulter" component={ConsultationsStackNavigator}/>
           <Tab.Screen name="Rapporter" component={ReportsStackNavigator} />
-          <Tab.Screen name="Timesheets" component={TimesheetsStackNavigator} options={{ tabBarBadge: this.state.timesheetsAmout }}/>
+          {(this.state.timesheetsAmout > 0) ?
+            <Tab.Screen name="Horaire à confirmer" component={TimesheetsStackNavigator} options={{ tabBarBadge: this.state.timesheetsAmout }}/>
+          : null }
         </Tab.Navigator>
         
       );
