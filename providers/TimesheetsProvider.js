@@ -7,22 +7,17 @@ class TimesheetsProvider {
             headers: {
                 'Authorization': `Bearer ${token}`
               }
-        })
-        .then(function (res) {
-        })
+        }).then(res => res.data)  
         .catch(function (error) {
         });
     }
 
     countUncheckedTimesheets(token){
-        API.get('unconfirmedworkplans',{
+        return API.get('unconfirmedworkplans',{
             headers: {
                 'Authorization': `Bearer ${token}`
               }
-        })
-        .then(function (res) {
-            return res.lenght
-        })
+        }).then(res => res.data.length)  
         .catch(function (error) {
         });
     }
