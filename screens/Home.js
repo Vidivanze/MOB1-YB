@@ -5,7 +5,7 @@ import { UserContext } from '../context/UserContext';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-import StackNavigator, { ConsultationsStackNavigator, ReportsStackNavigator } from './navigation/StackNavigator';
+import StackNavigator, { ConsultationsStackNavigator, ReportsStackNavigator, TimesheetsStackNavigator } from './navigation/StackNavigator';
 
 
 const Tab = createBottomTabNavigator();
@@ -17,7 +17,7 @@ class Home extends Component {
     constructor(props){
         super(props);
         this.state = {
-          
+        
         }
     }
     
@@ -30,11 +30,11 @@ class Home extends Component {
               let iconName;
 
               if (route.name === 'Consulter') {
-                iconName = focused
-                  ? 'ios-list'
-                  : 'ios-list';
+                iconName = focused ? 'ios-list' : 'ios-list';
               } else if (route.name === 'Rapporter') {
                 iconName = focused ? 'ios-medkit' : 'ios-medkit';
+              }else if (route.name === 'Timesheets'){
+                iconName = focused ? 'alarm-outline' : 'alarm-outline';
               }
 
               // You can return any component that you like here!
@@ -48,6 +48,7 @@ class Home extends Component {
         >
           <Tab.Screen name="Consulter" component={ConsultationsStackNavigator}/>
           <Tab.Screen name="Rapporter" component={ReportsStackNavigator} />
+          <Tab.Screen name="Timesheets" component={TimesheetsStackNavigator} options={{ tabBarBadge: 3 }}/>
         </Tab.Navigator>
         
       );

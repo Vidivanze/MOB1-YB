@@ -10,6 +10,7 @@ import Home from "../Home";
 import Consultations from '../Consultations';
 import ConsultationDetails from '../ConsultationDetails';
 import Reports from '../Reports';
+import Timesheets from '../Timesheets';
 
 
 const Stack = createStackNavigator();
@@ -43,7 +44,7 @@ export class ConsultationsStackNavigator extends Component{
   render(){
     return (
       <DefaultStackNavigator>
-        <Stack.Screen name="List" component={Consultations} />
+        <Stack.Screen name="Consultations" component={Consultations} />
         <Stack.Screen name="Details" component={ConsultationDetails} />
       </DefaultStackNavigator>
     );
@@ -55,7 +56,18 @@ export class ReportsStackNavigator extends Component{
   render(){
     return (
       <DefaultStackNavigator>
-        <Stack.Screen name="List" component={Reports} />
+        <Stack.Screen name="Reports" component={Reports} />
+      </DefaultStackNavigator>
+    );
+  } 
+}
+
+//Timesheets component is from the tab navigator
+export class TimesheetsStackNavigator extends Component{
+  render(){
+    return (
+      <DefaultStackNavigator>
+        <Stack.Screen name="Timesheet" component={Timesheets} />
       </DefaultStackNavigator>
     );
   } 
