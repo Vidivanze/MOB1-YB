@@ -24,7 +24,7 @@ class TimesheetCard extends Component {
     }
     
     componentDidMount(){
-        this.setState({ item: this.props.item, itemType: this.props.item.worktime.type })
+        this.setState({ item: this.props.item, itemType: this.props.item.worktime.type, confirmation: this.props.item.confirmation})
     }
 
     saveTimesheet(){
@@ -69,13 +69,20 @@ class TimesheetCard extends Component {
                 <Card.Divider/>
                     
                     <View style={{alignItems: 'center', paddingBottom: 10}}>
-                        <Picker name="base" style={{ height: 20, width: 100, marginTop: 10}} setSelectedValue={this.state.item.confirmation} onChange={val => this.setState({ confirmation: val.target.value })}>
+                        <Picker name="base" style={{ height: 20, width: 100, marginTop: 10}} selectedValue={this.state.confirmation} onChange={val => this.setState({ confirmation: val.target.value })}>
                             <Picker.Item key="null" label="Inconnu" value="null" />
-                            <Picker.Item key="0" label="À discuter" value="0" />
+                            <Picker.Item key="0" label="À discuter" value="0"/>
                             <Picker.Item key="1" label="Confirmer" value="1" />
                         </Picker>
                     </View>
 
+                   
+                    {(this.state.item.confirmation == '0') ?
+                        <View style={{alignItems: "center"}}> 
+
+                           <Text>Raison : {this.state.item.reason}</Text>
+                        </View>
+                    : null }
 
                     {(this.state.confirmation == '0') ?
                         <View style={{alignItems: "center"}}>                        
