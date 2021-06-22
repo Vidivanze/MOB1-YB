@@ -8,6 +8,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import StackNavigator, { ConsultationsStackNavigator, ReportsStackNavigator, TimesheetsStackNavigator } from './navigation/StackNavigator';
 
 import TimesheetsProvider from '../providers/TimesheetsProvider';
+import Timesheets from './Timesheets';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -18,7 +19,7 @@ class Home extends Component {
     constructor(props){
         super(props);
         this.state = {
-          timeSheetsAmout: null
+          timesheetsAmout: null
         }
 
         this.timesheetsProvider = new TimesheetsProvider();
@@ -26,9 +27,7 @@ class Home extends Component {
     
     componentDidMount(){
       this.timesheetsProvider.countUncheckedTimesheets(this.context.token).then(res => {
-        this.setState({timeSheetsAmout: res})
-        console.log(res)
-        console.log(this.state.timeSheetsAmout)
+        this.setState({timesheetsAmout: res})
       }, cause => {
           Toast.show({
               position: 'top',
@@ -72,7 +71,7 @@ class Home extends Component {
         >
           <Tab.Screen name="Consulter" component={ConsultationsStackNavigator}/>
           <Tab.Screen name="Rapporter" component={ReportsStackNavigator} />
-          <Tab.Screen name="Timesheets" component={TimesheetsStackNavigator} options={{ tabBarBadge: this.state.timeSheetsAmout }}/>
+          <Tab.Screen name="Timesheets" component={TimesheetsStackNavigator} options={{ tabBarBadge: this.state.timesheetsAmout }}/>
         </Tab.Navigator>
         
       );
